@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const P = styled.p`
     color: red;
-    background: yellow;
+    background: yellow;    
 `;
 
 export default function test(props) {
