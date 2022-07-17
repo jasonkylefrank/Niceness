@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
+// import Image from 'next/image'
 import styled from 'styled-components';
-import theme from './_theme';
 
 
+//#region --- Styled Components ---
 const Container = styled.div`
   padding: 0 2rem;
 `;
@@ -18,7 +17,6 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
 `;
-
 
 
 const H1 = styled.h1`
@@ -120,14 +118,15 @@ const Card = styled.a`
   }
 `;
 
+//#endregion
 
 export default function Home() {
   return (
     <Container>
       <Head>
-        <title>Niceness challenge!</title>
+        {/* <title>Test • Niceness challenge!</title> */}
         {/* <meta name="description" content="" /> */}
-        <link rel="shortcut icon" href="/favicon.svg" />
+        {/* <link rel="shortcut icon" href="/favicon.svg" /> */}
       </Head>
 
       <Main>
