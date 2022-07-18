@@ -1,6 +1,7 @@
 import Head from 'next/head'
 // import Image from 'next/image'
 import styled from 'styled-components';
+import Layout from '../components/layout';
 
 
 //#region --- Styled Components ---
@@ -185,3 +186,12 @@ export default function Home() {
     </Container>
   );
 }
+
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+};

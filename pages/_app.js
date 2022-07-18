@@ -1,21 +1,26 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from "../components/globalStyles";
 import theme from './_theme';
 
 
 function MyApp({ Component, pageProps }) {
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page);
+  const componentWithLayout = getLayout(<Component {...pageProps} />);
+
   return (
     <>
       <Head>
-        <title>Niceness challenge!</title>
+        {/* Also see Head stuff in other places such as the Layout component */}
         {/* <meta name="description" content="" /> */}
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
       
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <Component {...pageProps} />
+        {componentWithLayout}
       </ThemeProvider>
     </>
   );
