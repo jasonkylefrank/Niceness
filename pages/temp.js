@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import Layout from "../components/layout";
+import { Container, Main } from "../components/_sharedStyles";
 
 
 export default function Temp() {
   return (
-    <>
-      This is the `Temp` component!
-    </>
+    <Container>
+        <Main>
+          This is the `Temp` component!
+        </Main>
+    </Container>
   );
 }
 

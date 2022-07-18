@@ -15,6 +15,8 @@ export default function Layout({children, title}) {
             </header>
 
             {children}
+
+            <footer>Fake, temporary footer</footer>
         </>
     );
 }

@@ -1,7 +1,15 @@
 import Head from 'next/head';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from "../components/_globalStyles";
 import theme from '../components/_theme';
+
+
+const Root = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
 
 
 function MyApp({ Component, pageProps }) {
@@ -11,7 +19,7 @@ function MyApp({ Component, pageProps }) {
   const componentWithLayout = getLayout(<Component {...pageProps} />);
 
   return (
-    <>
+    <Root>
       <Head>
         {/* Also see Head stuff in other places such as the Layout component */}
         {/* <meta name="description" content="" /> */}
@@ -22,7 +30,7 @@ function MyApp({ Component, pageProps }) {
         <GlobalStyles />
         {componentWithLayout}
       </ThemeProvider>
-    </>
+    </Root>
   );
 }
 

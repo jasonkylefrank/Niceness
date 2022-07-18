@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Layout from "../components/layout";
+import { Container, Main } from "../components/_sharedStyles";
 
 const P = styled.p`
     color: red;
@@ -9,10 +10,12 @@ const P = styled.p`
 export default function Test(props) {
 
     return (
-        <>
-            <h1>This is the &quot;test&quot; page</h1>
-            <P>Just a test, man!</P>
-        </>
+        <Container>
+            <Main>
+                <h1>This is the &quot;test&quot; page</h1>
+                <P>Just a test, man!</P>
+            </Main>
+        </Container>
     );
 }
 
