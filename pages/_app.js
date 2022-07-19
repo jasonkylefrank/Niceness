@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styled, { ThemeProvider as SCThemeProvider } from 'styled-components';
 import { ThemeProvider as MUIThemeProvider, createTheme as createMUITheme, StyledEngineProvider } from '@mui/material/styles';
 import GlobalStyles from "../components/_globalStyles";
@@ -29,13 +28,7 @@ function MyApp({ Component, pageProps }) {
   const componentWithLayout = getLayout(<Component {...pageProps} />);
 
   return (
-    <Root>
-      <Head>
-        {/* Also see <Head> stuff in other places such as the Layout component */}
-        {/* <meta name="description" content="" /> */}
-        <link rel="shortcut icon" href="/favicon.svg" />
-      </Head>
-      
+    <Root>    
       {/* Need this so we can override MUI styles.  See: https://stackoverflow.com/a/69210767/718325 */}
       <StyledEngineProvider injectFirst>
         <MUIThemeProvider theme={muiTheme}>

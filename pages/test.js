@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Icon from "@mui/material/Icon";
+import Button from "@mui/material/Button";
 import Layout from "../components/layout";
 import { Container, Main } from "../components/_sharedStyles";
 
@@ -28,6 +30,10 @@ export default function Test(props) {
                 <StyledButton>Cool button</StyledButton>
 
                 <Button sx={{ color: 'brown' }}>Regular button</Button>
+
+                <IconButton>
+                    <Icon>rowing</Icon>
+                </IconButton>
             </Main>
         </Container>
     );
