@@ -65,7 +65,7 @@ const Grid = styled.div`
 `;
 
 const Footer = styled.footer`
-  color: ${({ theme }) => theme.colors.text.subdued};
+  color: ${({ theme }) => theme.palette.text.secondary};
   display: flex;
   flex: 1;
   padding: 2rem 0;
@@ -87,7 +87,7 @@ const Logo = styled.span`
 `;
 
 const FakeLogo = styled.span`
-  color: ${({ theme }) => theme.colors.text.normal};
+  color: ${({ theme }) => theme.palette.text.primary};
   font-weight: 500;
   margin-left: 0.4rem;
 `;
