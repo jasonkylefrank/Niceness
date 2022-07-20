@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "//cleanUrls": "Setting this to 'true' allows you to navigate to pages without specifying '.html' (only needed when viewing the app on Firebase hosting)",
+    "cleanUrls": true
+  }
+}
