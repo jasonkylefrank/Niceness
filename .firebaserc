@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "niceness-game"
-  }
+    "staging": "niceness-game--staging",
+    "prod": "niceness-game",
+    "default": "niceness-game--staging"
+  },
+  "targets": {},
+  "etags": {}
 }
