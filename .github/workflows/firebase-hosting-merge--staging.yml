@@ -1,0 +1,33 @@
+
+name: Deploy to Firebase on merge (Staging)
+on:
+  push:
+    branches:
+      - staging
+
+env: # create environment variables for the build that happens on GitHub. Vars attach to process.env
+  NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+  NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+
+
+jobs:
+  build_and_deploy_hosting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          # TODO: Determine if this needs to be updated to one specific to the staging project!
+          #       I think the Firebase CLI will generate that and upload it to GitHub for me if
+          #       I run the 'firebase init' command again and ask to setup GitHub action and then
+          #       select the staging project.
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME }}'
+          channelId: live
+          projectId: niceness-game--staging
