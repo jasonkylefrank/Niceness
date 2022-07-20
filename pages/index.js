@@ -2,6 +2,7 @@ import Head from 'next/head'
 // import Image from 'next/image'
 import styled from 'styled-components';
 import Layout from '../components/layout';
+import { firebaseApp } from '../lib/firebase';
 
 
 //#region --- Styled Components ---
