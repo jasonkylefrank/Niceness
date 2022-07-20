@@ -7,7 +7,8 @@ export default function Temp() {
   return (
     <Container>
         <Main>
-          This is the `Temp` component!
+          <p>This is the `Temp` component!</p>
+          <p>This is a new paragraph!</p>
         </Main>
     </Container>
   );
