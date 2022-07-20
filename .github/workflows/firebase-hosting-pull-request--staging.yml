@@ -1,7 +1,7 @@
 
-name: Deploy to Firebase on merge (Staging)
-on:
-  push:
+name: Deploy to Firebase on PR (Staging)
+on: 
+  pull_request:
     branches:
       - staging
 
@@ -16,7 +16,8 @@ env: # create environment variables for the build that happens on GitHub. Vars a
 
 
 jobs:
-  build_and_deploy_hosting:
+  build_and_preview_hosting:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,5 +26,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-          channelId: live
           projectId: niceness-game--staging
