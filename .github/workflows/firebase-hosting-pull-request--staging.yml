@@ -24,7 +24,7 @@ jobs:
       # - run: npm ci && npm run build
 
       - name: Checkout, install deps, build
-        uses: ./.github/actions/checkout-and-build
+        uses: ./.github/actions/checkout-and-build@main
 
       - name: Testing if build succeded
         run: ls ./out
