@@ -15,52 +15,45 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: Validate inputs
-      # Inspiration: https://stackoverflow.com/a/70281911/718325
-      # run: |        
-      #   [[ "${{ inputs.environment == 'staging' }}" ]] || 
-      #   [[ "${{ inputs.environment == 'prod'    }}" ]] || 
-      #   { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
-        
-        # [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
-      # run: |        
-      #   [[ ${{ inputs.environment == 'staging' }} ]] || [[ ${{ inputs.environment == 'prod' }} ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
-      # shell: bash
-
-    - name: Validate inputs
-      if: ${{ inputs.environment != 'staging'  &&  inputs.environment != 'prod'}} 
+    - name: Validate inputs      
+      if: ${{ inputs.environment != 'staging'  &&  inputs.environment != 'prod'}} # Inspiration: https://stackoverflow.com/a/70281911/718325
       run: echo "'Required input 'environment' must be set to either 'staging' or 'prod'. You passed '${{ inputs.environment }}'"; exit 1;
       shell: bash
     
-    # - name: Install dependencies
-    #   # working-directory: ./frontend
-    #   run: npm ci
-    #   shell: bash
+    - name: Install dependencies
+      # working-directory: ./frontend
+      run: npm ci
+      shell: bash
 
     - name: Build app (Staging environment)
       if: ${{ inputs.environment == 'staging' }}
-      # run: npm run build
-      run: echo 'staging environment'  # TEMP
+      run: npm run build
       shell: bash
-      # env:
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
-      #   NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+      env:
+        NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY:             ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN:         ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID:          ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+      # run: echo 'staging environment'
+      # working-directory: ./frontend
+
 
     - name: Build app (Production environment)
       if: ${{ inputs.environment == 'prod' }}
-      # run: npm run build
-      run: echo 'production environment'  # TEMP
+      run: npm run build
       shell: bash
+      env:
+        NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY:             ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN:         ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID:          ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+        NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+      # run: echo 'production environment'
+      # working-directory: ./frontend
 
-    
-    # - name: Build app
-    #   # working-directory: ./frontend
-    #   run: npm run build
-    #   shell: bash
-    #   #env:
 
