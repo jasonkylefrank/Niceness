@@ -21,8 +21,10 @@ runs:
       #   [[ "${{ inputs.environment == 'staging' }}" ]] || 
       #   [[ "${{ inputs.environment == 'prod'    }}" ]] || 
       #   { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+        
+        # [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
       run: |        
-        [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+        [[ ${{ inputs.environment == 'staging' }} ]] || [[ ${{ inputs.environment == 'prod' }} ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
       shell: bash
     
     - name: Install dependencies
