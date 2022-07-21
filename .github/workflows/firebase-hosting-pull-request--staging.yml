@@ -5,7 +5,10 @@ on:
     branches:
       - staging
 
-# env: # create environment variables for the build that happens on GitHub. Vars attach to process.env
+# Create environment variables for the build that happens on GitHub. Vars attach to process.env.
+#  Note: When declaring these up here (above 'jobs'), they become accessible to all jobs in this file (could be useful or could be a security concern)
+#        We can also declare them a the individual job or step level.
+# env: 
 #   NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
 #   NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
 #   NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
@@ -28,8 +31,6 @@ jobs:
       - name: Install deps, then build
         # Note: Environment variables defined above the 'jobs' (in this file) are accessible in the called action
         uses: ./.github/actions/install-deps-and-build
-        with:
-          environment: staging
         env: 
           NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY:             ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
           NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN:         ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
@@ -38,6 +39,8 @@ jobs:
           NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
           NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
           NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+        # with:
+        #   environment: staging
 
 
       - name: Deploy to Firebase hosting
