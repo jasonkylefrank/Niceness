@@ -31,3 +31,9 @@ jobs:
       #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
       #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
       #     projectId: niceness-game--staging
+
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      # (TEMP) Checking if we can see the build in a subsequent job
+      - run: ls ./out
