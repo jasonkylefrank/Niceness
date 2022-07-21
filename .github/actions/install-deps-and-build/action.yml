@@ -21,6 +21,7 @@ runs:
         [[ "${{ inputs.environment == 'staging' }}" ]] || 
         [[ "${{ inputs.environment == 'prod'    }}" ]] || 
         { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+      shell: bash
     
     - name: Install dependencies
       # working-directory: ./frontend
