@@ -20,11 +20,14 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm ci && npm run build
-      
-      # (TEMP) Checking if we can see the build at this point
-      - run: ls ./out
+      # - uses: actions/checkout@v2
+      # - run: npm ci && npm run build
+
+      - name: Checkout, install deps, build
+        uses: ./.github/actions/checkout-and-build
+
+      - name: Testing if build succeded
+        run: ls ./out
 
       # - uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
@@ -32,15 +35,18 @@ jobs:
       #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
       #     projectId: niceness-game--staging
 
-  test_job:
-    runs-on: ubuntu-latest
-    needs: [build_and_preview_hosting]
-    steps:
+
+
+
+  # test_job:
+  #   runs-on: ubuntu-latest
+  #   needs: [build_and_preview_hosting]
+  #   steps:
       # (TEMP) Checking if we can see the build in a subsequent job
       # - run: ls ./out
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-          projectId: niceness-game--staging
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+      #     projectId: niceness-game--staging

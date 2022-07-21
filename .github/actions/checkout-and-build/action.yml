@@ -1,0 +1,25 @@
+name: "Checkout, npm i, build"
+description: "Checkout the commit, install npm dependencies, then build"
+# TODO: Accept any needed inputs. E.g., 
+# inputs:
+#   bla:
+#     required: true
+#     description: "some description here"
+#   something:
+#     required: false
+#     description: "something described"
+
+runs-on: ubuntu-latest
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      # working-directory: ./frontend
+      run: npm ci
+
+    - name: Build app
+      # working-directory: ./frontend
+      run: npm run build
