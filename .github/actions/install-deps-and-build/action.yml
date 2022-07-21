@@ -29,7 +29,7 @@ runs:
 
     - name: Validate inputs
       if: ${{ inputs.environment != 'staging'  &&  inputs.environment != 'prod'}} 
-      run: echo "'Required input 'environment' must be set to either 'staging' or 'prod'"; exit 1;
+      run: echo "'Required input 'environment' must be set to either 'staging' or 'prod'. You passed '${{ inputs.environment }}'"; exit 1;
       shell: bash
     
     # - name: Install dependencies
