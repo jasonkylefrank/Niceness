@@ -19,10 +19,11 @@ runs:
     #   uses: actions/checkout@v2
 
     - name: Install dependencies
-      shell: bash
       # working-directory: ./frontend
       run: npm ci
+      shell: bash
 
     - name: Build app
       # working-directory: ./frontend
       run: npm run build
+      shell: bash
