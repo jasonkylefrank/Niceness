@@ -37,4 +37,10 @@ jobs:
     needs: [build_and_preview_hosting]
     steps:
       # (TEMP) Checking if we can see the build in a subsequent job
-      - run: ls ./out
+      # - run: ls ./out
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+          projectId: niceness-game--staging
