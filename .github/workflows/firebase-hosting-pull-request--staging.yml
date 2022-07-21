@@ -19,19 +19,15 @@ jobs:
   build_and_preview_hosting:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
-    steps:
-      # - uses: actions/checkout@v2
-      # - run: npm ci && npm run build
 
-      # Checkout the repository first, otherwise the workflow won't be able to find the action
+    steps:
+      # Checkout the repository first, otherwise the workflow won't be able to find local actions
       - name: Checkout the repo (do this first so the workflow can find local actions)
         uses: actions/checkout@v2
 
-      - name: Checkout, install deps, build
-        uses: ./.github/actions/checkout-and-build
-
-      # - name: Testing if build succeded
-      #   run: ls ./out
+      - name: Install deps, then build
+        # Note: Environment variables defined above the 'jobs' (in this file) are accessible in the called action
+        uses: ./.github/actions/install-deps-and-build
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -42,16 +38,3 @@ jobs:
 
 
 
-
-  # test_job:
-  #   runs-on: ubuntu-latest
-  #   needs: [build_and_preview_hosting]
-  #   steps:
-      # (TEMP) Checking if we can see the build in a subsequent job
-      # - run: ls ./out
-
-      # - uses: FirebaseExtended/action-hosting-deploy@v0
-      #   with:
-      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
-      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-      #     projectId: niceness-game--staging

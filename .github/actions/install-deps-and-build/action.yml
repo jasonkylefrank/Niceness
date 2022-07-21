@@ -1,0 +1,41 @@
+name: "Install deps, then build"
+description: "Install npm dependencies, then build the project"
+
+inputs:
+  environment:
+    required: true
+    description: "Determines what environement variables to set.  Expecting: 'staging' | 'prod'"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      # working-directory: ./frontend
+      run: npm ci
+      shell: bash
+
+    - name: Build app (Staging environment)
+      if: ${{ inputs.environement == 'staging' }}
+      # run: npm run build
+      run: echo 'staging environment'  # TEMP
+      # env:
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+      #   NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+
+    - name: Build app (Production environment)
+      if: ${{ inputs.environement == 'prod' }}
+      # run: npm run build
+      run: echo 'production environment'  # TEMP
+
+    
+    # - name: Build app
+    #   # working-directory: ./frontend
+    #   run: npm run build
+    #   shell: bash
+    #   #env:
+
