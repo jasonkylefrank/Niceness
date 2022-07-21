@@ -15,7 +15,7 @@ runs:
       shell: bash
 
     - name: Build app (Staging environment)
-      if: ${{ inputs.environement == 'staging' }}
+      if: ${{ inputs.environment == 'staging' }}
       # run: npm run build
       run: echo 'staging environment'  # TEMP
       shell: bash
@@ -29,7 +29,7 @@ runs:
       #   NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
 
     - name: Build app (Production environment)
-      if: ${{ inputs.environement == 'prod' }}
+      if: ${{ inputs.environment == 'prod' }}
       # run: npm run build
       run: echo 'production environment'  # TEMP
       shell: bash
