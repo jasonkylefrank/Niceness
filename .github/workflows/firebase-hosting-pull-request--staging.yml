@@ -29,12 +29,12 @@ jobs:
         # Note: Environment variables defined above the 'jobs' (in this file) are accessible in the called action
         uses: ./.github/actions/install-deps-and-build
 
-      - name: Deploy to Firebase hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-          projectId: niceness-game--staging
+      # - name: Deploy to Firebase hosting
+      #   uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+      #     projectId: niceness-game--staging
 
 
 
