@@ -26,7 +26,7 @@ jobs:
       # Checkout the repository first
       # Otherwise the workflow won't be able to find the action
       - name: Checkout the repo first so the workflow can find local actions
-        use: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Checkout, install deps, build
         uses: ./.github/actions/checkout-and-build

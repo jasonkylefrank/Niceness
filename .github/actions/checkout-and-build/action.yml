@@ -9,7 +9,9 @@ description: "Checkout the commit, install npm dependencies, then build"
 #     required: false
 #     description: "something described"
 
-runs-on: ubuntu-latest
+# TODO: Determine if I should remove this "runs-on" from here (at the action level)
+# runs-on: ubuntu-latest
+
 runs:
   using: "composite"
   steps:
