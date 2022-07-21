@@ -18,6 +18,7 @@ runs:
       if: ${{ inputs.environement == 'staging' }}
       # run: npm run build
       run: echo 'staging environment'  # TEMP
+      shell: bash
       # env:
       #   NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
       #   NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
@@ -31,6 +32,7 @@ runs:
       if: ${{ inputs.environement == 'prod' }}
       # run: npm run build
       run: echo 'production environment'  # TEMP
+      shell: bash
 
     
     # - name: Build app
