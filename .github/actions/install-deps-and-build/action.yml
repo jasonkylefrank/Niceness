@@ -15,7 +15,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Validate inputs
+    # - name: Validate inputs
       # Inspiration: https://stackoverflow.com/a/70281911/718325
       # run: |        
       #   [[ "${{ inputs.environment == 'staging' }}" ]] || 
@@ -23,14 +23,19 @@ runs:
       #   { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
         
         # [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
-      run: |        
-        [[ ${{ inputs.environment == 'staging' }} ]] || [[ ${{ inputs.environment == 'prod' }} ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+      # run: |        
+      #   [[ ${{ inputs.environment == 'staging' }} ]] || [[ ${{ inputs.environment == 'prod' }} ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+      # shell: bash
+
+    - name: Validate inputs
+      if: ${{ inputs.environment != 'staging'  &&  inputs.environment != 'prod'}} 
+      run: echo "'Required input 'environment' must be set to either 'staging' or 'prod'"; exit 1;
       shell: bash
     
-    - name: Install dependencies
-      # working-directory: ./frontend
-      run: npm ci
-      shell: bash
+    # - name: Install dependencies
+    #   # working-directory: ./frontend
+    #   run: npm ci
+    #   shell: bash
 
     - name: Build app (Staging environment)
       if: ${{ inputs.environment == 'staging' }}
