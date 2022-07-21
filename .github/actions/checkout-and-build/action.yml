@@ -13,8 +13,8 @@ runs-on: ubuntu-latest
 runs:
   using: "composite"
   steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v2
+    # - name: Checkout the repo
+    #   uses: actions/checkout@v2
 
     - name: Install dependencies
       # working-directory: ./frontend
