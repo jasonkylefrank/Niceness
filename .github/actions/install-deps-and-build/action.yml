@@ -3,12 +3,22 @@ description: "Install npm dependencies, then build the project"
 
 inputs:
   environment:
-    required: true
     description: "Determines what environement variables to set.  Expecting: 'staging' | 'prod'"
+    required: true
+    type: choice
+    options:
+    - staging
+    - prod
+
 
 runs:
   using: "composite"
   steps:
+    # - name: Validate inputs
+    #   # Inspiration: https://stackoverflow.com/a/70281911/718325
+    #   run: |        
+    #     [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+    
     - name: Install dependencies
       # working-directory: ./frontend
       run: npm ci
