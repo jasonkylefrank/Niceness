@@ -5,6 +5,7 @@ inputs:
   environment:
     description: "Determines what environement variables to set.  Expecting: 'staging' | 'prod'"
     required: true
+    # Note: These 'type' and 'options' parameters don't seem to work in this context (I think they may only work for workflow_dispatch triggers)
     type: choice
     options:
     - staging
@@ -14,10 +15,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: Validate inputs
-    #   # Inspiration: https://stackoverflow.com/a/70281911/718325
-    #   run: |        
-    #     [[ "${{ inputs.environment == 'staging' }}" ]] || [[ "${{ inputs.environment == 'prod' }}" ]] || { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
+    - name: Validate inputs
+      # Inspiration: https://stackoverflow.com/a/70281911/718325
+      run: |        
+        [[ "${{ inputs.environment == 'staging' }}" ]] || 
+        [[ "${{ inputs.environment == 'prod'    }}" ]] || 
+        { echo "'Required input 'environment' must be 'staging' or 'prod'" ; exit 1; }
     
     - name: Install dependencies
       # working-directory: ./frontend
