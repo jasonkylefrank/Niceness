@@ -22,12 +22,14 @@ jobs:
 
     steps:
       # Checkout the repository first, otherwise the workflow won't be able to find local actions
-      - name: Checkout the repo (do this first so the workflow can find local actions)
+      - name: Checkout the commit
         uses: actions/checkout@v2
 
       - name: Install deps, then build
         # Note: Environment variables defined above the 'jobs' (in this file) are accessible in the called action
         uses: ./.github/actions/install-deps-and-build
+        with:
+          environement: staging
 
       # - name: Deploy to Firebase hosting
       #   uses: FirebaseExtended/action-hosting-deploy@v0
