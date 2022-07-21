@@ -123,6 +123,9 @@ const Card = styled.a`
 //#endregion
 
 export default function Home() {
+
+  console.log(firebaseApp);
+
   return (
     <Container>
       <Head>
