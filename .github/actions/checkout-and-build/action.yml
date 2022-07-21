@@ -1,5 +1,5 @@
-name: "Checkout, npm i, build"
-description: "Checkout the commit, install npm dependencies, then build"
+name: "Install deps, then build"
+description: "Install npm dependencies, then build the project"
 # TODO: Accept any needed inputs. E.g., 
 # inputs:
 #   bla:
@@ -9,15 +9,9 @@ description: "Checkout the commit, install npm dependencies, then build"
 #     required: false
 #     description: "something described"
 
-# TODO: Determine if I should remove this "runs-on" from here (at the action level)
-# runs-on: ubuntu-latest
-
 runs:
   using: "composite"
   steps:
-    # - name: Checkout the repo
-    #   uses: actions/checkout@v2
-
     - name: Install dependencies
       # working-directory: ./frontend
       run: npm ci
