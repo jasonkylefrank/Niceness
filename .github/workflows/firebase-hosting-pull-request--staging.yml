@@ -30,6 +30,7 @@ jobs:
 
   deploy_hosting_preview:
     needs: [install_deps_and_build]
+    
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
 
@@ -38,18 +39,18 @@ jobs:
         uses: actions/download-artifact@v3
         # If you omit the 'name' input, then all artifacts of this workflow run are downloaded
         # with:
-        #   name: front-end-build
-        
+        #   name: out
+
 
       - name: (temp) Checking the file contents in this context
         run: ls
 
-      # - name: Deploy to Firebase hosting
-      #   uses: FirebaseExtended/action-hosting-deploy@v0
-      #   with:
-      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
-      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-      #     projectId: niceness-game--staging
+      - name: Deploy to Firebase hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+          projectId: niceness-game--staging
 
 
 

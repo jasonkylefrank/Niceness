@@ -62,8 +62,11 @@ jobs:
       - name: Archive the build (so other jobs can access it)
         uses: actions/upload-artifact@v3 # See this example in the docs: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#example
         with:
-          # The name we assign to our archive
-          # *** TODO: Determine if I should make this an input variable (probably) ***
-          name: front-end-build
+          # The name we assign to our archive.
+          # Next.js calls their build output directory 'out' and our firebase.json file has a field
+          #  that also states that (so hosting knows where our files are). So it probably makes sense to name
+          #  this archive by the same name.
+          name: out 
+          # The path to the directory (or directories or files) that we want to archive (see the example noted above)
           path: |
             out            
