@@ -69,7 +69,6 @@ jobs:
           # name: out 
           name: build
           # The path to the directory (or directories or files) that we want to archive (see the example noted above)
-          # path: |
-          #   out          
           path: |
-            ./*          
+            out
+            firebase.json
