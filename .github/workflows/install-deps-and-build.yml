@@ -13,6 +13,7 @@ on:
 
 jobs:
   validate_inputs:
+    name: Validate inputs
     runs-on: ubuntu-latest
     steps:
       - name: Validate inputs      
@@ -20,6 +21,7 @@ jobs:
         run: echo "'Required input 'envName' must be set to either 'staging' or 'prod'. You passed '${{ inputs.envName }}'"; exit 1;
 
   install_deps_and_build:
+    name: Install deps & build
     needs: [validate_inputs]
     runs-on: ubuntu-latest
 
@@ -67,7 +69,7 @@ jobs:
           #  that also states that (so hosting knows where our files are). So it probably makes sense to name
           #  this archive by the same name.
           # name: out 
-          name: build
+          name: build-archive # TODO: Determine how to create a variable in the calling file and pass that in to this workflow and in the download step in the calling workflow
           # The path to the directory (or directories or files) that we want to archive (see the example noted above)
           path: |
             out

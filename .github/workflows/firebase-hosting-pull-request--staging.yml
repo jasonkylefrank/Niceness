@@ -43,11 +43,12 @@ jobs:
 
 
       - name: (temp) Checking the file contents in this context
-        run: ls
+        run: ls build-archive
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: ./build-archive
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
           projectId: niceness-game--staging
