@@ -5,7 +5,9 @@ on:
     branches:
       - staging
 
-# Create environment variables applicable to all jobs in this file Note: We can also declare them at the individual job or step level.
+# Create environment variables applicable to all jobs in this file 
+#  Notes: (1) We can also declare them at the individual job or step level.
+#         (2) How to access these env variables: '$VAR_NAME' or '${{ env.VAR_NAME }}', depending on the context. The GitHub docs show both approaches but are not clear on when to use which.
 env: 
   BUILD_ARCHIVE_NAME: build-archive
 
@@ -19,7 +21,6 @@ jobs:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
       envName: staging      
-      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
       build_archive_name: $BUILD_ARCHIVE_NAME
     secrets: inherit
 
@@ -41,43 +42,14 @@ jobs:
 
       # This step is for debugging purposes only (can be deleted)
       - name: Checking the archive contents in this context
-        # run: ls ${{ env.BUILD_ARCHIVE_NAME }}
-        run: ls $BUILD_ARCHIVE_NAME
+        run: ls ./$BUILD_ARCHIVE_NAME
 
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          # entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
           entryPoint: ./$BUILD_ARCHIVE_NAME  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
           projectId: niceness-game--staging
-
-
-
-
-  # build_and_preview_hosting:
-  #   if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     # Checkout the repository first, otherwise the workflow won't be able to find local actions
-  #     # - name: Checkout the commit
-  #     #   uses: actions/checkout@v2
-
-  #     #- name: Install deps, then build
-  #       # Note: Environment variables defined above the 'jobs' (in this file) are accessible in the called action
-  #       #uses: ./.github/actions/install-deps-and-build
-  #       # with:
-  #       #   environment: staging
-
-  #     - name: Deploy to Firebase hosting
-  #       uses: FirebaseExtended/action-hosting-deploy@v0
-  #       with:
-  #         repoToken: '${{ secrets.GITHUB_TOKEN }}'
-  #         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-  #         projectId: niceness-game--staging
-
-
 
