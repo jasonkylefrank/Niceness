@@ -26,10 +26,9 @@ jobs:
       # NOTE: These approaches don't work in this context...
       #       Unfortunately we cannot use the environment variable defined above as the value of this input.
       #       Hopefully GitHub will enable that functionality at some point. See: https://github.com/actions/runner/issues/1189 and https://github.com/actions/runner/issues/480
-      # build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
+      build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
       # build_archive_name: $BUILD_ARCHIVE_NAME # <-- Doesn't work (treated as a string)
       # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }} # <-- Doesn't work (bombs on 'env')
-      build_archive_name: ./${{ env.BUILD_ARCHIVE_NAME }}
     secrets: inherit
 
 
