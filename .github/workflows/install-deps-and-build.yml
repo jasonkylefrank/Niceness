@@ -1,0 +1,55 @@
+
+name: Install deps & build
+
+on:
+  workflow_call:
+    inputs:
+      envName:
+        description: "'staging' | 'prod'. The deployment environment (needed so we know which Firebase env variables to use)."
+        required: true
+        type: string  # Must be either 'boolean', 'number', or 'string'    
+        # default: "staging"
+
+
+jobs:
+  install_deps_and_build:
+      runs-on: ubuntu-latest
+
+      steps:        
+        - name: Checkout the commit
+          uses: actions/checkout@v2
+
+        - name: Install dependencies
+          run: npm ci
+          # working-directory: ./frontend
+
+        - name: Building the app for 'staging'
+          if:  ${{ inputs.envName == 'staging' }}
+          run: npm run build
+          # working-directory: ./frontend
+          env:
+            NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY:             ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN:         ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID:          ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+
+
+        - name: Building the app for 'prod'
+          if:  ${{ inputs.envName == 'prod' }}
+          run: npm run build
+          # working-directory: ./frontend
+          env:
+            NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY:             ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN:         ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID:          ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
+            NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+
+
+        - name: (temp) Check the build
+          run: ls ./out

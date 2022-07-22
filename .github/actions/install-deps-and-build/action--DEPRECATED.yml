@@ -1,3 +1,25 @@
+
+# ---------------------- DEPRECATION NOTICE -------------------------------------------
+# 7/22/22: After trying to use this action as a way to consolidate workflow code, I have
+#          decided to try other approaches because of things like:
+#
+#   (1) I cannot access GitHub secrets in this file.  
+#        I was going to create the Firebase environment variables in this file instead 
+#        of in the calling file in order to list them just ONE time for all workflows.
+#        While I could pass-in the environment variables, that does not accomplish the
+#        goal of making them DRY since I'd still have to specify them multiple times
+#        for all my deployment needs.
+#
+#   (2) (minor issue) On the GitHub UI, compared to reusable workflows or separate jobs,
+#        I think we don't get as-nice of a visual representation of what's happening.
+#
+#   (3) (minor issue) We have to specify the 'shell' field in every single step in this file
+#
+#   (4) (minor issue) It seems we must perform the 'checkout' step in the calling workflow
+#        instead of being able to do that in this file.  So that aspect can't be abstracted
+#        out to the composite action, which means the calling workflow has more clutter.
+
+
 name: "Install deps, then build"
 description: "Install npm dependencies, then build the project"
 
