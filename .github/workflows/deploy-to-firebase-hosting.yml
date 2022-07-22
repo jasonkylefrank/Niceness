@@ -1,0 +1,63 @@
+name: Deploy to Firebase hosting
+
+on:
+  workflow_call:
+    inputs:
+      entryPoint:
+        description: "Path to the firebase.json location. Typically this would be the build archive name, .e.g., './${{ env.BUILD_ARCHIVE_NAME }}'"
+        required: true
+        type: string
+      # repoToken:
+      #   description: "The GitHub repo token secret."
+      #   required: true
+      #   type: string
+      firebaseServiceAccount:
+        description: "The service account secret for the Firebase project. The Firebase CLI will generate one when you run 'firebase init' and ask it to generate a GitHub workflow."
+        required: true
+        type: string
+      channelId:
+        description: "The Firebase hosting channel to deploy to. Typically either 'live' or '' (nothing means create a preview channel, which is useful for PRs)"
+        required: false
+        type: string
+      projectId:
+        description: "The Firebase project id"
+        required: true
+        type: string
+
+
+jobs:
+  pre_deploy_validation:
+    name: Pre-deploy validation
+    if: |
+      !channelId && (github.event.pull_request.head.repo.full_name != github.repository)
+    run: echo "Pre-deploy condition failed."; exit 1;
+
+  deploy_hosting:
+    name: Deploy hosting
+    needs: [pre_deploy_validation]
+    # Only run this job if the channelId is specified or if the PR is from this repo (at least that's what I think that expression means - it came from the generated hosting deployment workflow)
+    if: |
+      !channelId && (github.event.pull_request.head.repo.full_name == github.repository) ||
+      channelId
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download the built artifact
+        uses: actions/download-artifact@v3
+        # with:       
+          # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
+
+
+      # This step is for debugging purposes only (can be deleted)
+      - name: Checking the archive contents in this context
+        run: ls ${{ inputs.entryPoint }}
+
+
+      - name: Deploy to Firebase hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:          
+          entryPoint: ./${{ inputs.entryPoint }}  # Path to the firebase.json file
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: ${{ inputs.firebaseServiceAccount }}
+          projectId: ${{ inputs.projectId }}
+          channelId: ${{ inputs.channelId }}

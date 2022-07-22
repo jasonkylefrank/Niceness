@@ -18,6 +18,7 @@ env:
 jobs:
   install_deps_and_build:
     name: Install deps & build
+    # Call the reusable workflow
     uses: ./.github/workflows/install-deps-and-build.yml
     with:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
@@ -35,28 +36,39 @@ jobs:
   deploy_hosting_preview:
     name: Deploy hosting preview
     needs: [install_deps_and_build]
+    # Call the reusable workflow
+    uses: ./.github/workflows/deploy-to-firebase-hosting.yml
+    with:      
+      entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file      
+      firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+      projectId: niceness-game--staging
+
+
+  # deploy_hosting_preview:
+  #   name: Deploy hosting preview
+  #   needs: [install_deps_and_build]
     
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    runs-on: ubuntu-latest
+  #   if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Download the built artifact
-        uses: actions/download-artifact@v3
-        # with:       
-          # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
-
-
-      # This step is for debugging purposes only (can be deleted)
-      - name: Checking the archive contents in this context
-        run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
+  #   steps:
+  #     - name: Download the built artifact
+  #       uses: actions/download-artifact@v3
+  #       # with:       
+  #         # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
 
 
-      - name: Deploy to Firebase hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          # entryPoint: ./$BUILD_ARCHIVE_NAME  # <-- The env variable is treated as a string in this context. Path to the firebase.json file
-          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-          projectId: niceness-game--staging
+  #     # This step is for debugging purposes only (can be deleted)
+  #     - name: Checking the archive contents in this context
+  #       run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
+
+
+  #     - name: Deploy to Firebase hosting
+  #       uses: FirebaseExtended/action-hosting-deploy@v0
+  #       with:
+  #         # entryPoint: ./$BUILD_ARCHIVE_NAME  # <-- The env variable is treated as a string in this context. Path to the firebase.json file
+  #         entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
+  #         repoToken: '${{ secrets.GITHUB_TOKEN }}'
+  #         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
+  #         projectId: niceness-game--staging
 
