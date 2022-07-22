@@ -1,3 +1,11 @@
+
+# *************** DEPRECATION NOTICE ***************
+# 7/22/22: I decided to punt on this reusable workflow due to how GitHub will not currently
+#  allow us to access '${{ env.something }}' or '${{ secrets.something }}' when passing values
+#  into a reusable workflow (via the "with:" in the calling workflow).  Without being able to use
+#  those things, the code would lose DRYness.
+
+
 name: Deploy to Firebase hosting
 
 on:
