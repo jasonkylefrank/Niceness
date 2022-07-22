@@ -20,7 +20,7 @@ jobs:
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
       # envName: staging
       envName: Bob
-      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
+      build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
     secrets: inherit
 
 
