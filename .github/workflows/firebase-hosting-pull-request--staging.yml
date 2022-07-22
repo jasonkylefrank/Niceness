@@ -16,15 +16,22 @@ env:
 jobs:
   install_deps_and_build:
     name: Install deps & build
-    uses: ./.github/workflows/install-deps-and-build.yml
-    with:
-      # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
-      #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
-      envName: staging      
-      # build_archive_name: $BUILD_ARCHIVE_NAME
-      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
-      build_archive_name: ${{ echo env.BUILD_ARCHIVE_NAME }}
-    secrets: inherit
+
+    steps:
+      - name: (Test)
+        run: ls
+
+      -name: Run reusable action
+        uses: ./.github/workflows/install-deps-and-build.yml
+        with:
+          # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
+          #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
+          envName: staging      
+          # build_archive_name: $BUILD_ARCHIVE_NAME
+          # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
+          # build_archive_name: ${{ echo env.BUILD_ARCHIVE_NAME }}
+          build_archive_name: build-archive
+        secrets: inherit
 
 
   deploy_hosting_preview:
