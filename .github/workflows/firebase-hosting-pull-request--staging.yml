@@ -21,7 +21,7 @@ on:
 jobs:
   install_deps_and_build:
     uses: ./.github/workflows/install-deps-and-build.yml
-    with:
+    # with:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
       # envName: staging
