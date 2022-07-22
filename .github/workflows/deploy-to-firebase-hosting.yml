@@ -28,9 +28,12 @@ on:
 jobs:
   pre_deploy_validation:
     name: Pre-deploy validation
-    if: |
-      !channelId && (github.event.pull_request.head.repo.full_name != github.repository)
-    run: echo "Pre-deploy condition failed."; exit 1;
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR is from same repo if no channelId specified
+        if: |
+          !channelId && (github.event.pull_request.head.repo.full_name != github.repository)
+        run: echo "Pre-deploy condition failed."; exit 1;
 
   deploy_hosting:
     name: Deploy hosting
