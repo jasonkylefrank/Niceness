@@ -43,6 +43,7 @@ jobs:
       entryPoint: ./build-archive  # <-- Will need to update that if updating the environment variable above (see earlier notes)
       firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
       projectId: niceness-game--staging
+    secrets: inherit
 
 
   # deploy_hosting_preview:
