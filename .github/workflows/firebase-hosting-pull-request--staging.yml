@@ -5,30 +5,27 @@ on:
     branches:
       - staging
 
-# Create environment variables for the build that happens on GitHub. Vars attach to process.env.
-#  Note: When declaring these up here (above 'jobs'), they become accessible to all jobs in this file (could be useful or could be a security concern)
-#        We can also declare them a the individual job or step level.
-# env: 
-#   NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
-#   NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+# Create environment variables applicable to all jobs in this file Note: We can also declare them at the individual job or step level.
+env: 
+  BUILD_ARCHIVE_NAME: build-archive
+
 
 
 jobs:
   install_deps_and_build:
+    name: Install deps & build
     uses: ./.github/workflows/install-deps-and-build.yml
     with:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
-      envName: staging
+      # envName: staging
+      envName: Bob
+      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
     secrets: inherit
 
 
   deploy_hosting_preview:
+    name: Deploy hosting preview
     needs: [install_deps_and_build]
     
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -37,18 +34,20 @@ jobs:
     steps:
       - name: Download the built artifact
         uses: actions/download-artifact@v3
-        # If you omit the 'name' input, then all artifacts of this workflow run are downloaded
-        # with:
-        #   name: out
+        with:          
+          # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
+          #name: ${{ env.BUILD_ARCHIVE_NAME }}
 
 
-      - name: (temp) Checking the file contents in this context
-        run: ls build-archive
+      # This step is for debugging purposes only (can be deleted)
+      - name: Checking the archive contents in this context
+        run: ls ${{ env.BUILD_ARCHIVE_NAME }}
+
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: ./build-archive
+          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
           projectId: niceness-game--staging

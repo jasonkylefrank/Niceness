@@ -9,6 +9,10 @@ on:
         required: true
         type: string  # Must be either 'boolean', 'number', or 'string'    
         # default: "staging"
+      build_archive_name:
+        description: "The name of the archive to create for the built code."
+        required: true
+        type: string
 
 
 jobs:
@@ -16,9 +20,16 @@ jobs:
     name: Validate inputs
     runs-on: ubuntu-latest
     steps:
-      - name: Validate inputs      
-        if: ${{ inputs.envName != 'staging'  &&  inputs.envName != 'prod'}} # Inspiration: https://stackoverflow.com/a/70281911/718325
+      - name: Validate 'envName' input
+        # Inspiration: https://github.community/t/how-to-write-multi-line-condition-in-if/128477/2
+        if: |
+          (inputs.envName != 'staging'  &&  inputs.envName != 'prod')
         run: echo "'Required input 'envName' must be set to either 'staging' or 'prod'. You passed '${{ inputs.envName }}'"; exit 1;
+      
+      - name: Validate 'build_archive_name' input
+        if: |
+          inputs.build_archive_name == ""
+        run: echo "'Required input 'build_archive_name' not passed-in."; exit 1;
 
   install_deps_and_build:
     name: Install deps & build
@@ -33,8 +44,8 @@ jobs:
         run: npm ci
         # working-directory: ./frontend
 
-      - name: Building the app for 'staging'
-        if:  ${{ inputs.envName == 'staging' }}
+      - name:   Build the app for 'staging'
+        if: ${{ inputs.envName == 'staging' }}
         run: npm run build
         # working-directory: ./frontend
         env:
@@ -47,8 +58,8 @@ jobs:
           NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
 
 
-      - name: Building the app for 'prod'
-        if:  ${{ inputs.envName == 'prod' }}
+      - name:   Build the app for 'prod'
+        if: ${{ inputs.envName == 'prod' }}
         run: npm run build
         # working-directory: ./frontend
         env:
@@ -65,11 +76,7 @@ jobs:
         uses: actions/upload-artifact@v3 # See this example in the docs: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#example
         with:
           # The name we assign to our archive.
-          # Next.js calls their build output directory 'out' and our firebase.json file has a field
-          #  that also states that (so hosting knows where our files are). So it probably makes sense to name
-          #  this archive by the same name.
-          # name: out 
-          name: build-archive # TODO: Determine how to create a variable in the calling file and pass that in to this workflow and in the download step in the calling workflow
+          name: ${{ inputs.build_archive_name }}
           # The path to the directory (or directories or files) that we want to archive (see the example noted above)
           path: |
             out
