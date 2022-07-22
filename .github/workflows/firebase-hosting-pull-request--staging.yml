@@ -24,11 +24,12 @@ jobs:
     with:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
-      envName: staging
+      # envName: staging
     secrets: inherit
 
 
   deploy_hosting_preview:
+    needs: [install_deps_and_build]
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
 
