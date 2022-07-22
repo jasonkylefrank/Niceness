@@ -24,7 +24,7 @@ jobs:
 
 
   deploy_hosting:
-    name: Deploy hosting preview
+    name: Deploy hosting
     needs: [install_deps_and_build]        
     runs-on: ubuntu-latest
 
