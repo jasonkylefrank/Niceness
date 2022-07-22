@@ -21,7 +21,9 @@ jobs:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
       envName: staging      
-      build_archive_name: $BUILD_ARCHIVE_NAME
+      # build_archive_name: $BUILD_ARCHIVE_NAME
+      build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}
+      # build_archive_name: ${{ cat env.BUILD_ARCHIVE_NAME }}
     secrets: inherit
 
 
