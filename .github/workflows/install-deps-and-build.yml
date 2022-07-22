@@ -58,6 +58,3 @@ jobs:
           NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
           NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
 
-
-      - name: (temp) Check the build
-        run: ls ./out
