@@ -4,3 +4,4 @@ An app that gamifies how a group of people treat each other.  It's really fun!  
 
 To begin with, we're aiming the app at families.  We might also branch-out to work teams as a team-building game.
 
+Being nice rocks.
