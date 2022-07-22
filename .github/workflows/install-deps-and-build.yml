@@ -58,3 +58,12 @@ jobs:
           NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID:              ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
           NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID:      ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
 
+
+      - name: Archive the build (so other jobs can access it)
+        uses: actions/upload-artifact@v3 # See this example in the docs: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#example
+        with:
+          # The name we assign to our archive
+          # *** TODO: Determine if I should make this an input variable (probably) ***
+          name: front-end-build
+          path: |
+            out            

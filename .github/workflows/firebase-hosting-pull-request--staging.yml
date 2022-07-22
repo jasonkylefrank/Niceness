@@ -34,8 +34,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: (temp) Checking if the build exists
-        run: ls ./out
+      - name: Download the built artifact
+        uses: actions/download-artifact@v3
+        # If you omit the 'name' input, then all artifacts of this workflow run are downloaded
+        # with:
+        #   name: front-end-build
+        
+
+      - name: (temp) Checking the file contents in this context
+        run: ls
 
       # - name: Deploy to Firebase hosting
       #   uses: FirebaseExtended/action-hosting-deploy@v0
