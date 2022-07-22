@@ -29,7 +29,7 @@ jobs:
       # build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
       # build_archive_name: $BUILD_ARCHIVE_NAME # <-- Doesn't work (treated as a string)
       # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }} # <-- Doesn't work (bombs on 'env')
-      build_archive_name: '${{ env.BUILD_ARCHIVE_NAME }}'
+      build_archive_name: ${{ echo '${{ env.BUILD_ARCHIVE_NAME }}' }}
     secrets: inherit
 
 
