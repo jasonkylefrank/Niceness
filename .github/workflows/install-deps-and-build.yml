@@ -66,7 +66,10 @@ jobs:
           # Next.js calls their build output directory 'out' and our firebase.json file has a field
           #  that also states that (so hosting knows where our files are). So it probably makes sense to name
           #  this archive by the same name.
-          name: out 
+          # name: out 
+          name: build
           # The path to the directory (or directories or files) that we want to archive (see the example noted above)
+          # path: |
+          #   out          
           path: |
-            out            
+            ./*          
