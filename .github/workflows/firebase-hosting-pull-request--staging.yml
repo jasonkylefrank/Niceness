@@ -25,10 +25,10 @@ jobs:
       envName: staging
       # NOTE: These approaches don't work in this context...
       #       Unfortunately we cannot use the environment variable defined above as the value of this input.
-      #       Hopefully GitHub will enable that functionality at some point.
-      # build_archive_name: $BUILD_ARCHIVE_NAME
-      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }}            
+      #       Hopefully GitHub will enable that functionality at some point. See: https://github.com/actions/runner/issues/1189 and https://github.com/actions/runner/issues/480
       build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
+      # build_archive_name: $BUILD_ARCHIVE_NAME # <-- Doesn't work (treated as a string)
+      # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }} # <-- Doesn't work (bombs on 'env')
     secrets: inherit
 
 
@@ -44,18 +44,18 @@ jobs:
         uses: actions/download-artifact@v3
         # with:       
           # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
-          #name: $BUILD_ARCHIVE_NAME
 
 
       # This step is for debugging purposes only (can be deleted)
       - name: Checking the archive contents in this context
-        run: ls ./$BUILD_ARCHIVE_NAME
+        run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
 
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: ./$BUILD_ARCHIVE_NAME  # Path to the firebase.json file
+          # entryPoint: ./$BUILD_ARCHIVE_NAME  # <-- The env variable is treated as a string in this context. Path to the firebase.json file
+          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
           projectId: niceness-game--staging
