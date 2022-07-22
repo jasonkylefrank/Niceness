@@ -39,7 +39,8 @@ jobs:
     # Call the reusable workflow
     uses: ./.github/workflows/deploy-to-firebase-hosting.yml
     with:      
-      entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file      
+      # Path to the firebase.json file
+      entryPoint: ./build-archive  # <-- Will need to update that if updating the environment variable above (see earlier notes)
       firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
       projectId: niceness-game--staging
 
