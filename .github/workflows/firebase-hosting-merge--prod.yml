@@ -5,27 +5,43 @@ on:
     branches:
       - main
 
-env: # create environment variables for the build that happens on GitHub. Vars attach to process.env
-  NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__API_KEY }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__AUTH_DOMAIN }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__STORAGE_BUCKET }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MESSAGING_SENDER_ID }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__APP_ID }}
-  NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__MEASUREMENT_ID }}
+env: 
+  # NOTE: Unfortunately we cannot use this as the value of an input ("with:") to a reusable workflow.
+  #        So if we change this value, be sure to also change occurances of this *value* (not the key) elsewhere in the file.
+  BUILD_ARCHIVE_NAME: build-archive
 
 
 jobs:
-  build_and_deploy_hosting:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm ci && npm run build
 
-      
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
+  install_deps_and_build:
+    name: Install deps & build
+    uses: ./.github/workflows/install-deps-and-build.yml
+    with:      
+      envName: prod      
+      build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see notes above)
+    secrets: inherit
+
+
+
+  deploy_hosting:
+    name: Deploy hosting preview
+    needs: [install_deps_and_build]        
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download the built artifacts
+        uses: actions/download-artifact@v3
+
+      # This step is for debugging purposes only (can be deleted)
+      - name: Checking the archive contents in this context
+        run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
+
+
+      - name: Deploy to Firebase hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:          
+          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME }}'
-          channelId: live
           projectId: niceness-game
+          channelId: live

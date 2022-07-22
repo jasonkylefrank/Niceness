@@ -9,7 +9,7 @@ on:
 #  Notes: (1) We can also declare them at the individual job or step level.
 #         (2) How to access these env variables: '$VAR_NAME' or '${{ env.VAR_NAME }}', depending on the context. The GitHub docs show both approaches but are not clear on when to use which.
 env: 
-  # NOTE: Unfortunately we cannot use this as the value of an input ("with:") to a reusable action.
+  # NOTE: Unfortunately we cannot use this as the value of an input ("with:") to a reusable workflow.
   #        So if we change this value, be sure to also change occurances of this *value* (not the key) elsewhere in the file.
   BUILD_ARCHIVE_NAME: build-archive
 
@@ -24,8 +24,7 @@ jobs:
       # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
       #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
       envName: staging
-      # NOTE: These approaches don't work in this context...
-      #       Unfortunately we cannot use the environment variable defined above as the value of this input.
+      # NOTE: Unfortunately we cannot use the environment variable defined above as the value of this input.
       #       Hopefully GitHub will enable that functionality at some point. See: https://github.com/actions/runner/issues/1189 and https://github.com/actions/runner/issues/480
       build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
       # build_archive_name: $BUILD_ARCHIVE_NAME # <-- Doesn't work (treated as a string)
@@ -42,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download the built artifact
+      - name: Download the built artifacts
         uses: actions/download-artifact@v3
         # with:       
           # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
