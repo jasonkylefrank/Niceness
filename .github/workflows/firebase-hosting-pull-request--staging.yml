@@ -46,5 +46,5 @@ jobs:
           entryPoint: ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
-          projectId: niceness-game--staging
+          projectId: ${{ secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
 
