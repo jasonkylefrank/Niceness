@@ -9,10 +9,10 @@ on:
         required: true
         type: string  # Must be either 'boolean', 'number', or 'string'    
         # default: "staging"
-      build_archive_name:
-        description: "The name of the archive to create for the built code."
-        required: true
-        type: string
+      # build_archive_name:
+      #   description: "The name of the archive to create for the built code."
+      #   required: true
+      #   type: string
 
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v3 # See this example in the docs: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#example
         with:
           # The name we assign to our archive.
-          name: ${{ inputs.build_archive_name }}
+          name: ${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
           # The path to the directory (or directories or files) that we want to archive (see the example noted above)
           path: |
             out

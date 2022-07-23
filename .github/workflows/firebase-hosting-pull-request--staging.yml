@@ -8,10 +8,10 @@ on:
 # Create environment variables applicable to all jobs in this file 
 #  Notes: (1) We can also declare them at the individual job or step level.
 #         (2) How to access these env variables: '$VAR_NAME' or '${{ env.VAR_NAME }}', depending on the context. The GitHub docs show both approaches but are not clear on when to use which.
-env: 
+# env: 
   # NOTE: Unfortunately we cannot use this as the value of an input ("with:") to a reusable workflow.
   #        So if we change this value, be sure to also change occurances of this *value* (not the key) elsewhere in the file.
-  BUILD_ARCHIVE_NAME: build-archive
+  # BUILD_ARCHIVE_NAME: build-archive
 
 
 
@@ -26,7 +26,7 @@ jobs:
       envName: staging
       # NOTE: Unfortunately we cannot use the environment variable defined above as the value of this input.
       #       Hopefully GitHub will enable that functionality at some point. See: https://github.com/actions/runner/issues/1189 and https://github.com/actions/runner/issues/480
-      build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
+      # build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see note above this line!)
       # build_archive_name: $BUILD_ARCHIVE_NAME # <-- Doesn't work (treated as a string)
       # build_archive_name: ${{ env.BUILD_ARCHIVE_NAME }} # <-- Doesn't work (bombs on 'env')
     secrets: inherit
@@ -49,14 +49,14 @@ jobs:
 
       # This step is for debugging purposes only (can be deleted)
       - name: Checking the archive contents in this context
-        run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
+        run: ls ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
 
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           # entryPoint: ./$BUILD_ARCHIVE_NAME  # <-- With that approach, the env variable is treated as a string in this context.
-          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
+          entryPoint: ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING }}'
           projectId: niceness-game--staging
