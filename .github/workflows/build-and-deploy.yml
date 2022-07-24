@@ -18,18 +18,15 @@ on:
 
 
 jobs:
-  test_stuff_in_reusable_workflow:
+  validate_pr_source:
+    name: Validate PR is from same repo
     runs-on: ubuntu-latest
+    if: '${{ github.event_name == 'pull_request' && (github.event.pull_request.head.repo.full_name != github.repository) }}'
     steps:
-      - run: |
-          echo ${{ github.event.pull_request.head.repo.full_name }}
-          echo ${{ github.repository }}
+      - name: Print error and exit
+        run: |
+          echo 'Error: This workflow is only intended to run for PRs from the same repo. This PR is from repo: ${{ github.event.pull_request.head.repo.full_name }}'
           exit 1
-
-
-
-
-
 
 
 
@@ -47,7 +44,7 @@ jobs:
 
   install_deps_and_build:
     name: Install deps & build
-    needs: [validate_inputs]
+    needs: [validate_pr_source, validate_inputs]
     runs-on: ubuntu-latest
 
     steps:        
@@ -102,11 +99,6 @@ jobs:
     name: Deploy
     needs: [install_deps_and_build]
     runs-on: ubuntu-latest
-
-
-    # TODO: Determine if I need the "if" check here....
-    # if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-
 
     steps:        
       - name: Download the built artifacts
