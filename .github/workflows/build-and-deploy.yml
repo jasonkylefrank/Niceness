@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print error and exit
+        # Only proceed if a PR is from the same repo. I.e., that PR is not from a fork.
         if: |
           (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.full_name != github.repository)
         run: |
