@@ -12,9 +12,10 @@ on:
 
 jobs:
   test_stuff:
-    run: |
-      echo ${{ github.event.pull_request.head.repo.full_name }}
-      echo ${{ github.repository }}
+    steps:
+      - run: |
+          echo ${{ github.event.pull_request.head.repo.full_name }}
+          echo ${{ github.repository }}
 
 
 

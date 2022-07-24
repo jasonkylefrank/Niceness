@@ -19,13 +19,14 @@ on:
 
 jobs:
   test_stuff_in_reusable_workflow:
-    run: |
-      echo ${{ github.event.pull_request.head.repo.full_name }}
-      echo ${{ github.repository }}
-      exit 1
+    steps:
+      - run: |
+          echo ${{ github.event.pull_request.head.repo.full_name }}
+          echo ${{ github.repository }}
+          exit 1
 
 
-      
+
 
 
 
