@@ -112,4 +112,4 @@ jobs:
           channelId: ${{ inputs.channelId }}
           
           firebaseServiceAccount: ${{ (inputs.envName == 'staging' && secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING) || (inputs.envName == 'prod' && secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME) }}
-          projectId: ${{ (inputs.envName == 'staging' && secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID) || (inputs.envName == 'prod' && secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
+          projectId: ${{ (inputs.envName == 'staging' && secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID) || (inputs.envName == 'prod' && secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID) }}
