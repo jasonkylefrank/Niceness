@@ -15,7 +15,7 @@ export default function Temp() {
         <Main>
           <p>This is the `Temp` component!</p>
           <p>This is a new paragraph!</p>
-          <FunkyP>Pink paragraphs are really neat!</FunkyP>
+          <FunkyP>Pink paragraphs are really neat!  Indeed</FunkyP>
         </Main>
     </Container>
   );
