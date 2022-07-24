@@ -16,53 +16,7 @@ jobs:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       envName: prod
-      # If this workflow was triggered by a PR, then pass "".  If triggered by a merge, pass "live"
-      channelId: ${{ (github.event_name == 'pull_request' && '') || (github.event_name == 'push' && 'live') }}
+      # If this workflow was triggered by a PR, then pass " " so it will be deployed to a preview channel (and gets a generated channel id).
+      # If triggered by a merge, pass "live" so that it deploys to the normal site for this particular environment.
+      channelId: ${{ (github.event_name == 'pull_request' && ' ') || (github.event_name == 'push' && 'live') }}
     secrets: inherit
-
-
-
-
-
-
-
-  # install_deps_and_build:
-  #   name: Install deps & build
-  #   # Call the reusable workflow
-  #   uses: ./.github/workflows/install-deps-and-build.yml
-  #   with:
-  #     # Note: I intentionally avoided naming this input "environement" since GitHub has a field called that
-  #     #        (but you have to set up more stuff on GitHub to use that and it is not available for private repos I think)
-  #     envName: prod
-  #   secrets: inherit
-
-
-
-  # deploy_hosting_preview:
-  #   name: Deploy hosting preview
-  #   needs: [install_deps_and_build]
-    
-  #   if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Download the built artifacts
-  #       uses: actions/download-artifact@v3
-  #       # with:       
-  #         # The archive name to download. If you omit the 'name' input, then all artifacts of this workflow run are downloaded
-
-
-  #     # This step is for debugging purposes only (can be deleted)
-  #     - name: Checking the archive contents in this context
-  #       run: ls ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
-
-
-  #     - name: Deploy to Firebase hosting
-  #       uses: FirebaseExtended/action-hosting-deploy@v0
-  #       with:
-  #         # entryPoint: ./$BUILD_ARCHIVE_NAME  # <-- With that approach, the env variable is treated as a string in this context.
-  #         entryPoint: ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}  # Path to the firebase.json file
-  #         repoToken: '${{ secrets.GITHUB_TOKEN }}'
-  #         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME }}'
-  #         projectId: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
-
