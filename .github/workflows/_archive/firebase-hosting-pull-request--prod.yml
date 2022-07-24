@@ -5,10 +5,6 @@ on:
     branches:
       - main
 
-env: 
-  # NOTE: Unfortunately we cannot use this as the value of an input ("with:") to a reusable workflow.
-  #        So if we change this value, be sure to also change occurances of this *value* (not the key) elsewhere in the file.
-  BUILD_ARCHIVE_NAME: build-archive
 
 
 jobs:
@@ -17,8 +13,7 @@ jobs:
     # Call the reusable workflow
     uses: ./.github/workflows/install-deps-and-build.yml
     with:      
-      envName: prod
-      build_archive_name: build-archive # <-- Will need to update that if updating the environment variable above (see notes above)      
+      envName: prod      
     secrets: inherit
 
 
@@ -37,13 +32,13 @@ jobs:
 
       # This step is for debugging purposes only (can be deleted)
       - name: Checking the archive contents in this context
-        run: ls ./$BUILD_ARCHIVE_NAME # <-- Works as expected
+        run: ls ././${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
 
 
       - name: Deploy to Firebase hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: ./${{ env.BUILD_ARCHIVE_NAME }}  # Path to the firebase.json file
+          entryPoint: ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME }}'
-          projectId: niceness-game
+          projectId: ${{ secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID }}
