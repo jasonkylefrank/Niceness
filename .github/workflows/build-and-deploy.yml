@@ -109,7 +109,6 @@ jobs:
         with:          
           entryPoint: ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}  # Path to the firebase.json file
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          channelId: ${{ inputs.channelId }}
-          
+          channelId: ${{ inputs.channelId }}          
           firebaseServiceAccount: ${{ (inputs.envName == 'staging' && secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME__STAGING) || (inputs.envName == 'prod' && secrets.FIREBASE_SERVICE_ACCOUNT_NICENESS_GAME) }}
           projectId: ${{ (inputs.envName == 'staging' && secrets.STAGING__NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID) || (inputs.envName == 'prod' && secrets.NEXT_PUBLIC__FIREBASE_CONFIG__PROJECT_ID) }}
