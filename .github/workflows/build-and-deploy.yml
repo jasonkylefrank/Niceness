@@ -19,11 +19,12 @@ on:
 
 jobs:
   validate_pr_source:
-    name: Validate PR is from same repo
+    name: Validate PR is from same repo (if PR triggered this workflow)
     runs-on: ubuntu-latest
-    if: ${{ (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.full_name != github.repository) }}
     steps:
       - name: Print error and exit
+        if: |
+          (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.full_name != github.repository)
         run: |
           echo 'Error: This workflow is only intended to run for PRs from the same repo. This PR is from repo: ${{ github.event.pull_request.head.repo.full_name }}'
           exit 1
