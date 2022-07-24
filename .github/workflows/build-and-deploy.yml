@@ -18,6 +18,19 @@ on:
 
 
 jobs:
+  test_stuff_in_reusable_workflow:
+    run: |
+      echo ${{ github.event.pull_request.head.repo.full_name }}
+      echo ${{ github.repository }}
+      exit 1
+
+
+      
+
+
+
+
+
   validate_inputs:
     name: Validate inputs
     runs-on: ubuntu-latest
@@ -90,6 +103,7 @@ jobs:
 
 
     # TODO: Determine if I need the "if" check here....
+    # if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
 
 
     steps:        
