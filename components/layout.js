@@ -1,5 +1,26 @@
 import Head from 'next/head';
+import styled from "styled-components";
 import AppBar from './appBar';
+import { firebaseProjectId } from "../lib/firebase";
+
+
+//#region Styled Components
+const Footer = styled.footer`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.07);
+`;
+const TempP = styled.p`  
+  color: rgba(0,0,0,0.54);
+  font-size: 0.85rem;
+`;
+const TempProjId = styled.span`
+  font-weight: 500;
+  color: rgba(0,0,0,0.75);
+`;
+//#endregion
+
 
 
 export default function Layout({children, title}) {
@@ -15,7 +36,9 @@ export default function Layout({children, title}) {
 
             {children}
 
-            <footer>Fake, temporary footer</footer>
+            <Footer>
+                <TempP>Current Firebase project ID: <TempProjId>{firebaseProjectId}</TempProjId></TempP>
+            </Footer>
         </>
     );
 }

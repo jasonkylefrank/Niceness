@@ -7,12 +7,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from './Avatar';
 import LogInButton from "./LogInButton";
+import Logo from "./logo";
 import { useContext, useState } from "react";
 import { UserAuthContext } from "../lib/context";
 
 
 const Header = styled.header`
-    padding: 12px;
+    padding: 12px 12px 12px 0;
     height: 64px;
     display: flex;
     align-items: center;
@@ -25,16 +26,15 @@ const LeftSide = styled.span`
 `;
 
 const MenuIconContainer = styled.span`
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 4px;
   margin-right: 20px;
+  height: 48px;
+  width: 48px;
 `;
 
-const H1 = styled.h1`
-    margin: 0;
-    font-weight: normal;
-    font-size: 24px;
-`;
 
 export default function AppBar() {
 
@@ -57,7 +57,7 @@ export default function AppBar() {
                 </IconButton>
               </MenuIconContainer>
 
-              <H1>The Niceness Challenge</H1>
+              <Logo />
             </LeftSide>
 
             <Avatar src={avatarSrc} onClick={handleAvatarClick} />
