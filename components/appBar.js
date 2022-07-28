@@ -5,8 +5,9 @@ import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from './Avatar';
-import LogInButton from "./LogInButton";
+
+import Avatar from './avatar';
+import LogInButton from "./logInButton";
 import Logo from "./logo";
 import { useContext, useState } from "react";
 import { UserAuthContext } from "../lib/context";

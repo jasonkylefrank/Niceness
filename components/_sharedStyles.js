@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-  padding: 0 0.5rem;
+  padding: 0 20px;
   flex: 1;
   display: flex;
   flex-flow: column nowrap;

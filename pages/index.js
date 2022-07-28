@@ -8,7 +8,7 @@ import { firebaseProjectId } from '../lib/firebase';
 
 //#region --- Styled Components ---
 const Separator = styled.hr`
-  width: 40%;
+  width: 30%;
   max-width: 440px;
   opacity: 0.25;
   margin: 72px 0;

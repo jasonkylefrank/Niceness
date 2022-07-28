@@ -1,12 +1,12 @@
 import { signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 import { auth, googleAuthProvider } from "../lib/firebase";
-import styled from "styled-components";
+// import styled from "styled-components";
 import Button from '@mui/material/Button';
 
 
 
 
-export default function LogInButton({ rootComponent }) {
+export default function LogInButton({ rootComponent, className, children }) {
   const signInWithGoogle = async () => {
     try {  
       await signInWithPopup(auth, googleAuthProvider);
@@ -24,10 +24,13 @@ export default function LogInButton({ rootComponent }) {
 
   const RootComponent = rootComponent || Button;
 
+  const childrenContent = children || 'Log in with Google';
+
   return (
     // <Button onClick={signInWithGoogle}>
-    <RootComponent onClick={signInWithGoogle}>
-      Log in with Google
+    // Note: We need to pass-in className in order for Styled Components to be able to create styled versions of this component.  See: https://styled-components.com/docs/advanced#styling-normal-react-components
+    <RootComponent onClick={signInWithGoogle} className={className}>
+      {childrenContent}
     </RootComponent>
     // </Button>
   );
