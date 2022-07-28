@@ -8,14 +8,15 @@ const LogoContainer = styled.span`
 const LogoSmallText = styled.h1`
   margin: 0;
   font-size: 9px;
+  font-weight: normal;
   text-transform: uppercase;
 `;
 
 const LogoMainText = styled.h1`
     margin: 0;
     font-weight: normal;
-    font-size: 20px;
-    line-height: 0.92;
+    font-size: 16px;
+    line-height: 0.9;
 `;
 
 

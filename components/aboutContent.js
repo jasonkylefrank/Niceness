@@ -22,7 +22,7 @@ const AlphaBetaNotice = styled.p`
   margin-top: 36px;
 `;
 
-export default function About() {
+export default function AboutContent() {
   return (
     <Container>
       <H1>About the game!</H1>

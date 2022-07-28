@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styled from "styled-components";
+import { Container, Main } from "../components/_sharedStyles";
 import AppBar from './appBar';
 import { firebaseProjectId } from "../lib/firebase";
 
@@ -32,9 +33,14 @@ export default function Layout({children, title}) {
             <Head>
                 <title>{fullTitle}</title>
             </Head>
+            
             <AppBar />
 
-            {children}
+            <Container>
+                <Main>
+                    {children}
+                </Main>
+            </Container>
 
             <Footer>
                 <TempP>Current Firebase project ID: <TempProjId>{firebaseProjectId}</TempProjId></TempP>
