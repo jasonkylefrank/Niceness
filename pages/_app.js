@@ -2,6 +2,9 @@ import styled, { ThemeProvider as SCThemeProvider } from 'styled-components';
 import { ThemeProvider as MUIThemeProvider, createTheme as createMUITheme, StyledEngineProvider } from '@mui/material/styles';
 import GlobalStyles from "../components/_globalStyles";
 import theme from '../components/_theme';
+import { UserAuthContext } from '../lib/context';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../lib/firebase';
 
 
 const Root = styled.div`
@@ -22,6 +25,8 @@ const muiTheme = createMUITheme(theme);
 
 
 function MyApp({ Component, pageProps }) {
+  
+  const [userAuth] = useAuthState(auth);
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
@@ -34,7 +39,10 @@ function MyApp({ Component, pageProps }) {
         <MUIThemeProvider theme={muiTheme}>
           <SCThemeProvider theme={theme}>
             <GlobalStyles />
-            {componentWithLayout}
+
+            <UserAuthContext.Provider value={{ userAuth }}>
+              {componentWithLayout}
+            </UserAuthContext.Provider>
           </SCThemeProvider>
         </MUIThemeProvider>
       </StyledEngineProvider>

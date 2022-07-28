@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import AppBar from './appBar';
 
 
 export default function Layout({children, title}) {
@@ -10,9 +11,7 @@ export default function Layout({children, title}) {
             <Head>
                 <title>{fullTitle}</title>
             </Head>
-            <header>
-                This is a header
-            </header>
+            <AppBar />
 
             {children}
 
