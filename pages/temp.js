@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Layout from "../components/layout";
-import { Container, Main } from "../components/_sharedStyles";
 
 const FunkyP = styled.p`
   background-color: pink;
@@ -11,15 +10,14 @@ const FunkyP = styled.p`
 
 export default function Temp() {
   return (
-    <Container>
-        <Main>
-          <p>This is the `Temp` component!</p>
-          <p>This is a new paragraph!</p>
-          <FunkyP>Pink paragraphs are really neat!  Indeed</FunkyP>
-        </Main>
-    </Container>
+    <>
+      <p>This is the `Temp` component!</p>
+      <p>This is a new paragraph!</p>
+      <FunkyP>Pink paragraphs are really neat!  Indeed</FunkyP>
+    </>
   );
 }
+
 
 Temp.getLayout = function getLayout(page) {
   return (
