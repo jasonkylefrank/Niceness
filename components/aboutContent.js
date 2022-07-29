@@ -28,7 +28,7 @@ export default function AboutContent() {
       <H1>About the game!</H1>
       <p>
         The Niceness Challenge is an app that gamifies how a group of people treat each other.
-        It's really fun!
+        It&apos;s really fun!
       </p>
 
       <p>
@@ -39,8 +39,8 @@ export default function AboutContent() {
         How to play
       </H3>
       <p>Once your family members are signed up, anyone can start the game.</p>
-      <p>During the game period (typically 1 day), you can use the app to take "nicenss notes"
-        to capture nice things you see your other family members do. (You'll later use those 
+      <p>During the game period (typically 1 day), you can use the app to take &quot;nicenss notes&quot;
+        to capture nice things you see your other family members do. (You&apos;ll later use those 
         notes help you decide who the winner is.)
       </p>
       <p>

@@ -39,7 +39,7 @@ export default function Home() {
       setShowAvatar(false); 
       setShowLogo(false);
     }
-  }, [userAuth]);
+  }, [userAuth, showAvatar, showLogo, setShowAvatar, setShowLogo]);
 
 
 
