@@ -2,7 +2,6 @@ import Head from 'next/head'
 // import Image from 'next/image'
 import styled from 'styled-components';
 import Layout from '../components/layout';
-import { firebaseApp } from '../lib/firebase';
 
 
 //#region --- Styled Components ---
@@ -122,9 +121,7 @@ const Card = styled.a`
 
 //#endregion
 
-export default function Home() {
-
-  console.log(firebaseApp);
+export default function Home() {  
 
   return (
     <Container>      

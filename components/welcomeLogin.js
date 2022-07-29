@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import Button from '@mui/material/Button';
 
-import LogInButton from "./loginButton";
+import LogInButton from "./logInButton";
 import GoogleLogo from "./googleLogo";
 import { UserAuthContext } from "../lib/context";
 import { auth, firestore } from "../lib/firebase";
