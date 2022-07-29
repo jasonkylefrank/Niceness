@@ -1,8 +1,10 @@
 import Head from 'next/head';
+import { useContext } from "react";
 import styled from "styled-components";
 import { Container, Main } from "../components/_sharedStyles";
 import AppBar from './appBar';
 import { firebaseProjectId } from "../lib/firebase";
+import { LayoutContext } from "../lib/context";
 
 
 //#region Styled Components
@@ -28,13 +30,15 @@ export default function Layout({children, title}) {
     const titleSuffix = 'Niceness!';
     const fullTitle = title ? `${title} • ${titleSuffix}` : titleSuffix;
 
+    const { showAvatar, showLogo } = useContext(LayoutContext);
+
     return (
         <>
             <Head>
                 <title>{fullTitle}</title>
             </Head>
             
-            <AppBar />
+            <AppBar showLogo={showLogo} showAvatar={showAvatar} />
 
             <Container>
                 <Main>

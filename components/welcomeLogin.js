@@ -42,7 +42,7 @@ const LogInSubtext = styled.span`
 
 const StyledLogInButton = styled(LogInButton)`
   font-size: 1.16rem;  
-  margin-top: 40px;
+  margin-top: 48px;
 `;
 
 const StyledGoogleLogo = styled(GoogleLogo)`
@@ -67,8 +67,10 @@ export default function WelcomeLogin() {
             </>          
           : <>
               <WelcomeBanner>Welcome to the <WelcomeBanner.Name>niceness challenge</WelcomeBanner.Name>!</WelcomeBanner>
+              
               <WelcomeSubtext>Log in to get started!</WelcomeSubtext>
               <LogInSubtext>(First-time or returning users)</LogInSubtext>
+              
               <StyledLogInButton>
                 <StyledGoogleLogo /> Log in with Google
               </StyledLogInButton>

@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import styled, { ThemeProvider as SCThemeProvider } from 'styled-components';
 import { ThemeProvider as MUIThemeProvider, createTheme as createMUITheme, StyledEngineProvider } from '@mui/material/styles';
 import GlobalStyles from "../components/_globalStyles";
 import theme from '../components/_theme';
-import { UserAuthContext } from '../lib/context';
+import { UserAuthContext, LayoutContext } from '../lib/context';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 
@@ -27,6 +28,8 @@ const muiTheme = createMUITheme(theme);
 function MyApp({ Component, pageProps }) {
   
   const [userAuth] = useAuthState(auth);
+  const [showLogo,   setShowLogo] = useState(true);
+  const [showAvatar, setShowAvatar] = useState(true);
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
@@ -41,7 +44,9 @@ function MyApp({ Component, pageProps }) {
             <GlobalStyles />
 
             <UserAuthContext.Provider value={{ userAuth }}>
-              {componentWithLayout}
+              <LayoutContext.Provider value={{ showLogo, setShowLogo, showAvatar, setShowAvatar }}>
+                {componentWithLayout}
+              </LayoutContext.Provider>
             </UserAuthContext.Provider>
           </SCThemeProvider>
         </MUIThemeProvider>

@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import { useContext, useEffect } from "react";
 import styled from 'styled-components';
 import Layout from '../components/layout';
 import WelcomeLogin from '../components/welcomeLogin';
-import AboutContent from '../components/aboutContent';
 import { firebaseProjectId } from '../lib/firebase';
+import { UserAuthContext, LayoutContext } from "../lib/context";
 
 
 //#region --- Styled Components ---
@@ -23,6 +24,25 @@ const AboutSnippet = styled.p`
 export default function Home() {
 
   console.log(firebaseProjectId);
+
+  const { showAvatar, setShowAvatar, showLogo, setShowLogo } = useContext(LayoutContext);
+  const { userAuth } = useContext(UserAuthContext);
+
+  // For a cleaner UI, we're only want to show the AppBar's logo and avatar if the user is signed in.
+  //  Otherwise we show a clean first-impression UI with a single sign-in button and banner, without duplicating stuff like the logo in the AppBar.
+  useEffect(() => {
+    if (userAuth && !(showAvatar || showLogo)) {
+      setShowAvatar(true); 
+      setShowLogo(true);
+    }
+    else if (!userAuth) {
+      setShowAvatar(false); 
+      setShowLogo(false);
+    }
+  }, [userAuth]);
+
+
+
 
   return (
     <>      

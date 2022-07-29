@@ -37,7 +37,7 @@ const MenuIconContainer = styled.span`
 `;
 
 
-export default function AppBar() {
+export default function AppBar({ showLogo, showAvatar }) {
 
     const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
@@ -58,10 +58,10 @@ export default function AppBar() {
                 </IconButton>
               </MenuIconContainer>
 
-              <Logo />
+              { showLogo && <Logo />}
             </LeftSide>
 
-            <Avatar src={avatarSrc} onClick={handleAvatarClick} />
+            { showAvatar && <Avatar src={avatarSrc} onClick={handleAvatarClick} /> }
 
             <Menu
                 open={isAvatarPopoverOpen}
