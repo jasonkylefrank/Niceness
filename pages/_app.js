@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
       {/* Need this so we can override MUI styles.  See: https://stackoverflow.com/a/69210767/718325 */}
       <StyledEngineProvider injectFirst>
         <MUIThemeProvider theme={muiTheme}>
-          <SCThemeProvider theme={theme}>
+          <SCThemeProvider theme={muiTheme}>
             <GlobalStyles />
 
             <UserAuthContext.Provider value={{ userAuth }}>

@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import Avatar from './avatar';
 import LogInButton from "./logInButton";
+import LogOutButton from "./logOutButton";
 import Logo from "./logo";
 import { useContext, useState } from "react";
 import { UserAuthContext } from "../lib/context";
@@ -58,7 +59,7 @@ export default function AppBar({ showLogo, showAvatar }) {
                 </IconButton>
               </MenuIconContainer>
 
-              { showLogo && <Logo />}
+              { showLogo && <Logo variant="small2" />}
             </LeftSide>
 
             { showAvatar && <Avatar src={avatarSrc} onClick={handleAvatarClick} /> }
@@ -77,9 +78,16 @@ export default function AppBar({ showLogo, showAvatar }) {
                 }}
             >
                 {
-                    userAuth
-                        ? <MenuItem onClick={() => { handlePopoverClose(); signOut(auth); }}>Log out</MenuItem>                        
-                        : <LogInButton rootComponent={MenuItem} />
+                    userAuth                        
+                      ? 
+                        <LogOutButton 
+                          rootComponent={MenuItem}
+                          onClick={() => handlePopoverClose()}
+                        >
+                          Log out
+                        </LogOutButton>
+                      : 
+                        <LogInButton rootComponent={MenuItem} />
                 }
             </Menu>
         </Header>

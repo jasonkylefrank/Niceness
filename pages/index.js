@@ -1,24 +1,15 @@
-import Link from 'next/link';
 import { useContext, useEffect } from "react";
-import styled from 'styled-components';
+
 import Layout from '../components/layout';
 import WelcomeLogin from '../components/welcomeLogin';
+import LogOutButton from "../components/logOutButton";
 import { firebaseProjectId } from '../lib/firebase';
 import { UserAuthContext, LayoutContext } from "../lib/context";
 
 
 //#region --- Styled Components ---
-const Separator = styled.hr`
-  width: 30%;
-  max-width: 440px;
-  opacity: 0.25;
-  margin: 72px 0;
-`;
 
-const AboutSnippet = styled.p`
-  max-width: 560px;
-  text-align: center;
-`;
+
 //#endregion
 
 export default function Home() {
@@ -45,16 +36,17 @@ export default function Home() {
 
 
   return (
-    <>      
-      <WelcomeLogin />
-
-      <Separator />
-
-      <AboutSnippet>
-        The niceness challenge is a fun game that rewards the nicest person in the family.
-        &nbsp;     
-        <Link href="/about">Learn more</Link>
-      </AboutSnippet>
+    <>
+      {
+        userAuth 
+          ?
+            <>
+              <p>Welcome, {userAuth.displayName}!</p>
+              <LogOutButton />
+            </> 
+          :
+            <WelcomeLogin />
+      }      
     </>
   );
 }

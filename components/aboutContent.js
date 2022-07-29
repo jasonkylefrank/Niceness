@@ -27,12 +27,10 @@ export default function AboutContent() {
     <Container>
       <H1>About the game!</H1>
       <p>
-        The Niceness Challenge is an app that gamifies how a group of people treat each other.
-        It&apos;s really fun!
+        The niceness challenge is a fun game that rewards the nicest person in the family!
       </p>
 
       <p>
-        The object of the game is to be the nicest person in your group during the game period.
         The winner collects a cool prize, plus niceness bragging rights!
       </p>
       <H3>
@@ -52,8 +50,8 @@ export default function AboutContent() {
         The winner gets to choose a prize from a set of prizes that the family has loaded into 
         the app.
       </p>
-      <AlphaBetaNotice>Note: The app is in alpha and some of the above-stated functionality has not yet
-        been implemented.
+      <AlphaBetaNotice>Note: The app is in alpha and some of the above-stated functionality may not 
+        have been implemented yet.
       </AlphaBetaNotice>
     </ Container>
   );

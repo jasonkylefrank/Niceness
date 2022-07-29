@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
 
 const Container = styled.div`
   padding: 0 20px;
@@ -19,4 +20,12 @@ const Main = styled.main`
 `;
 
 
-export { Container, Main };
+const InlineLink = styled.a`
+  color: ${({ theme }) => theme.palette.primary.main };
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
+export { Container, Main, InlineLink };

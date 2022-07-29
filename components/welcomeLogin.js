@@ -1,12 +1,11 @@
-import { signOut } from "firebase/auth";
+import Link from 'next/link';
 import styled from "styled-components";
-import { useContext, useEffect } from "react";
 import Button from '@mui/material/Button';
 
+import Logo from './logo';
+import NextInlineLink from "./nextInlineLink";
 import LogInButton from "./logInButton";
 import GoogleLogo from "./googleLogo";
-import { UserAuthContext } from "../lib/context";
-import { auth, firestore } from "../lib/firebase";
 
 //#region Styled Components
 const WelcomeBanner = styled.h2`
@@ -29,60 +28,82 @@ WelcomeBanner.Name = styled.span`
   font-weight: bold;
 `;
 
-const WelcomeSubtext = styled.p`
-  color: rgba(0,0,0,0.7);
-  font-size: 1.35rem;
-  margin-bottom: 8px;
+
+
+const AboutSnippet = styled.p`
+  font-size: 1.2rem;
+  max-width: 560px;
+  text-align: center;
+  margin: 32px 0 12px 0;
+  `;
+
+const LearnMoreLink = styled(NextInlineLink)`
+  font-size: 1rem;
+  /* margin-top: 48px; */
 `;
 
-const LogInSubtext = styled.span`
-  font-size: 0.9rem;
-  color: rgba(0,0,0,0.4);
+const Separator = styled.hr`
+  width: 30%;
+  max-width: 440px;
+  opacity: 0.25;
+  margin: 60px 0 60px 0;
 `;
 
 const StyledLogInButton = styled(LogInButton)`
   font-size: 1.16rem;  
-  margin-top: 48px;
+  margin-top: 56px;
+`;
+
+const StyledHowToPlayButton = styled(Button)`
+  color: rgba(0,0,0,0.7);
 `;
 
 const StyledGoogleLogo = styled(GoogleLogo)`
   height: 16px;
   margin-right: 12px;
 `;
+
+// const LogInPrompt = styled.p`
+//   color: rgba(0,0,0,0.7);
+//   font-size: 1.35rem;
+//   text-align: center;
+//   margin-bottom: 8px;
+// `;
+  
+// const LogInSubtext = styled.span`
+//   font-size: 0.9rem;
+//   color: rgba(0,0,0,0.4);
+//   text-align: center;
+//   margin-top: 24px;
+// `;
 //#endregion
 
 
 export default function WelcomeLogin() {
 
-  const { userAuth } = useContext(UserAuthContext);
-
   return (
     <>
-      {
-        userAuth 
-          ?
-            <>
-              <p>Welcome, {userAuth.displayName}!</p>
-              <LogOutButton />
-            </>          
-          : <>
-              <WelcomeBanner>Welcome to the <WelcomeBanner.Name>niceness challenge</WelcomeBanner.Name>!</WelcomeBanner>
-              
-              <WelcomeSubtext>Log in to get started!</WelcomeSubtext>
-              <LogInSubtext>(First-time or returning users)</LogInSubtext>
-              
-              <StyledLogInButton>
-                <StyledGoogleLogo /> Log in with Google
-              </StyledLogInButton>
-            </>
-      }      
+      <Logo />
+      {/* <Logo maxWidth="none" /> */}
+
+      <AboutSnippet>                
+        Be the nicest... win the prize!
+      </AboutSnippet>
+      
+      <StyledLogInButton>
+        <StyledGoogleLogo /> Log in to start!
+      </StyledLogInButton>
+      {/* <LogInSubtext>(First-time or returning users)</LogInSubtext> */}
+      
+      <Separator />
+
+      {/* <LearnMoreLink href="/about">How to play</LearnMoreLink> */}
+
+      <StyledHowToPlayButton>
+        <Link href="/about">
+          How to play
+        </Link>
+      </StyledHowToPlayButton>
     </>
-  );
-}
-
-
-function LogOutButton() {
-  return (
-    <Button onClick={() => signOut(auth)}>Log out</Button>
   );
 }
