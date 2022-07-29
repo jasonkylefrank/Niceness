@@ -78,7 +78,7 @@ export default function AppBar({ showLogo, showAvatar }) {
             >
                 {
                     userAuth
-                        ? <MenuItem onClick={() => signOut(auth)}>Log out</MenuItem>                        
+                        ? <MenuItem onClick={() => { handlePopoverClose(); signOut(auth); }}>Log out</MenuItem>                        
                         : <LogInButton rootComponent={MenuItem} />
                 }
             </Menu>
