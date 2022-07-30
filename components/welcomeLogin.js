@@ -84,7 +84,6 @@ export default function WelcomeLogin() {
   return (
     <>
       <Logo />
-      {/* <Logo maxWidth="none" /> */}
 
       <AboutSnippet>                
         Be the nicest... win the prize!
