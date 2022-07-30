@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 import Button from "@mui/material/Button";
 import Layout from "../components/layout";
-import { Container, Main } from "../components/_sharedStyles";
+
 
 const P = styled.p`
     color: red;
@@ -22,20 +22,18 @@ const StyledButton = styled(Button)`
 export default function Test(props) {
 
     return (
-        <Container>
-            <Main>
-                <h1>This is the &quot;test&quot; page</h1>
-                <P>Just a test, man!</P>
+        <>
+            <h1>This is the &quot;test&quot; page</h1>
+            <P>Just a test, man!</P>
 
-                <StyledButton>Cool button</StyledButton>
+            <StyledButton>Cool button</StyledButton>
 
-                <Button sx={{ color: 'brown' }}>Regular button</Button>
+            <Button sx={{ color: 'brown' }}>Regular button</Button>
 
-                <IconButton>
-                    <Icon>rowing</Icon>
-                </IconButton>
-            </Main>
-        </Container>
+            <IconButton>
+                <Icon>rowing</Icon>
+            </IconButton>
+        </>
     );
 }
 
