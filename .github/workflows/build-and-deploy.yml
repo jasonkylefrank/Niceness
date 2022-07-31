@@ -94,6 +94,9 @@ jobs:
           path: |
             out
             firebase.json
+            .firebaserc
+            firestore.indexes.json
+            firestore.rules
 
 
 
@@ -138,5 +141,6 @@ jobs:
           # Error: could not determine executable to run
           # npx firebase deploy --only firestore --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}
         run: |
-          npm i -g firebase-tools
+          npm i --location=global firebase-tools
+          cd ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
           firebase deploy --only firestore --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}
