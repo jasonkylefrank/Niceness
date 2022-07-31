@@ -45,11 +45,13 @@ const FooterIcon = styled(Icon)`
 
 
 
-export default function Layout({children, title}) {
+export default function Layout({ children, title, AppBarComponent }) {
     const titleSuffix = 'Niceness!';
     const fullTitle = title ? `${title} • ${titleSuffix}` : titleSuffix;
 
     const { showAvatar, showLogo } = useContext(LayoutContext);
+
+    const appBar = AppBarComponent || <AppBar showLogo={showLogo} showAvatar={showAvatar} />;
 
     return (
         <>
@@ -57,7 +59,7 @@ export default function Layout({children, title}) {
                 <title>{fullTitle}</title>
             </Head>
             
-            <AppBar showLogo={showLogo} showAvatar={showAvatar} />
+            { appBar }
 
             <Container>
                 <Main>
