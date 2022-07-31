@@ -131,5 +131,8 @@ jobs:
         if: |
           (github.event_name == 'push')
         # For the project alias (passed in via the --project flag), the names must be the same as those listed in the .firebaserc file
+          
+          # STUFF IN THE 'RUN' that didn't work:
+          # npx firebase deploy --only firestore --token secrets.FIREBASE_TOKEN --project (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod')
         run: |
-          npx firebase deploy --only firestore --token secrets.FIREBASE_TOKEN --project (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod')
+          npx firebase deploy --only firestore --token secrets.FIREBASE_TOKEN --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}
