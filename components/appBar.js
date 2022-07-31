@@ -38,7 +38,8 @@ const MenuIconContainer = styled.span`
 `;
 //#endregion
 
-export default function AppBar({ showLogo, showAvatar }) {
+// TODO: Merge the "showLogo" and "mainText" into something like "mainContent"?
+export default function AppBar({ showLogo, showAvatar, variant, leftIcon, mainText, rightIcon }) {
 
     const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
