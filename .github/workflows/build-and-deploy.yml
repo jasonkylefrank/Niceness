@@ -128,18 +128,12 @@ jobs:
 
 
       # TODO: Revisit this once I have cloud functions. I may have to cd into the functions directory before running the deploy command for those (see the Jailbreak examples)
-      #        The command I was going to try was: "firebase deploy --only functions, firestore --token FIREBASE_TOKEN --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}"
-      - name: Deploy Firestore security rules & indexes and cloud functions
+      #        The command I was going to try was: "firebase deploy --only functions, firestore --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}"
+      - name: Deploy Firestore security rules & indexes
         # Only deploy these items on merge (not pull request)
         if: |
           (github.event_name == 'push')
-        # For the project alias (passed in via the --project flag), the names must be the same as those listed in the .firebaserc file
-          
-          # STUFF IN THE 'RUN' that didn't work:
-          # Error: unexpected (
-          # npx firebase deploy --only firestore --token secrets.FIREBASE_TOKEN --project (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod')
-          # Error: could not determine executable to run
-          # npx firebase deploy --only firestore --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}
+        # For the project alias (passed in via the --project flag), the names must be the same as those listed in the .firebaserc file                    
         run: |
           npm i --location=global firebase-tools
           cd ./${{ secrets.BUILD_ARCHIVE_NAME__HACK }}
