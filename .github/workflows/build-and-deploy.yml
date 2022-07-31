@@ -128,7 +128,7 @@ jobs:
 
 
       # TODO: Revisit this once I have cloud functions. I may have to cd into the functions directory before running the deploy command for those (see the Jailbreak examples)
-      #        The command I was going to try was: "firebase deploy --only functions, firestore --token FIREBASE_TOKEN --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}"
+      #        The command I was going to try was: "firebase deploy --only functions, firestore --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ (inputs.envName == 'staging' && 'staging') || (inputs.envName == 'prod' && 'prod') }}"
       - name: Deploy Firestore security rules & indexes
         # Only deploy these items on merge (not pull request)
         if: |
