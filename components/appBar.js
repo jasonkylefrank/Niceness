@@ -1,5 +1,4 @@
-import { signOut } from "firebase/auth";
-import { auth  } from "../lib/firebase";
+import Link from "next/link";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
@@ -14,6 +13,7 @@ import { useContext, useState } from "react";
 import { UserAuthContext } from "../lib/context";
 
 
+//#region Styled Components
 const Header = styled.header`
     padding: 12px 12px 12px 0;
     height: 64px;
@@ -36,9 +36,10 @@ const MenuIconContainer = styled.span`
   height: 48px;
   width: 48px;
 `;
+//#endregion
 
-
-export default function AppBar({ showLogo, showAvatar }) {
+// TODO: Merge the "showLogo" and "mainText" into something like "mainContent"?
+export default function AppBar({ showLogo, showAvatar, variant, leftIcon, mainText, rightIcon }) {
 
     const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
@@ -59,7 +60,11 @@ export default function AppBar({ showLogo, showAvatar }) {
                 </IconButton>
               </MenuIconContainer>
 
-              { showLogo && <Logo variant="small2" />}
+              { 
+                showLogo 
+                  && <Logo variant="small2" />
+                  // && ( <Link href="/"> <Logo variant="small2" /> </Link> )
+              }
             </LeftSide>
 
             { showAvatar && <Avatar src={avatarSrc} onClick={handleAvatarClick} /> }

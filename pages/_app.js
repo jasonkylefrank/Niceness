@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 import styled, { ThemeProvider as SCThemeProvider } from 'styled-components';
 import { ThemeProvider as MUIThemeProvider, createTheme as createMUITheme, StyledEngineProvider } from '@mui/material/styles';
 import GlobalStyles from "../components/_globalStyles";
 import theme from '../components/_theme';
 import { UserAuthContext, LayoutContext } from '../lib/context';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../lib/firebase';
+import { auth, firestore} from '../lib/firebase';
 
 
 const Root = styled.div`
@@ -30,6 +31,33 @@ function MyApp({ Component, pageProps }) {
   const [userAuth] = useAuthState(auth);
   const [showLogo,   setShowLogo] = useState(true);
   const [showAvatar, setShowAvatar] = useState(true);
+
+  // Handle user log in event. Store new users in Firestore.
+  useEffect(() => {
+    // When login occurs
+    if (userAuth) {      
+      try {
+        ( async () => {
+          const userDocRef = doc(firestore, 'users', userAuth.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          
+          // Add a new user doc if this user doesn't have one yet
+          if (!userDocSnap.exists()) {
+            const { uid, displayName, email, photoURL } = userAuth;
+  
+            await setDoc(userDocRef, {
+              uid,
+              displayName,
+              email,
+              photoURL
+            });
+          }
+        })();       
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [userAuth]);
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
