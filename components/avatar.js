@@ -3,6 +3,10 @@ import styled from 'styled-components';
 const AvatarImg = styled.img`
     width: 40px;
     border-radius: 100%;
+
+    :hover {
+      cursor: pointer;
+    }
 `;
 
 export default function Avatar({ src, onClick }) {

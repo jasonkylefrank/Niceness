@@ -62,7 +62,7 @@ export default function AppBar({ mainContent, variant, leftIcon: leftIconProp, r
       else if (iconProp === null) {
         icon = null;
       }
-      else {
+      else if (defaultIconName) {
         icon = <Icon>{defaultIconName}</Icon>;
       }
       // Make the main (or outer) component
@@ -114,7 +114,10 @@ export default function AppBar({ mainContent, variant, leftIcon: leftIconProp, r
                     Log out
                   </LogOutButton>
                 : 
-                  <LogInButton rootComponent={MenuItem} />
+                  <LogInButton
+                    rootComponent={MenuItem}
+                    onClick={() => handlePopoverClose()}
+                  />
           }
       </Menu>
     );
