@@ -16,7 +16,7 @@ Onboarding.getLayout = function getLayout(page) {
   return (
     <Layout 
       title="Onboarding"
-      AppBarComponent={<AppBar variant="modal" leftIcon={null} mainText="" rightIcon={null} />}
+      AppBarComponent={<AppBar variant="modal" leftIcon={null} mainText="" rightIcon="more_vert" />}
     >
       {page}
     </Layout>

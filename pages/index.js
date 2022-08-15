@@ -16,21 +16,22 @@ export default function Home() {
 
   console.log(firebaseProjectId);
 
-  const { showAvatar, setShowAvatar, showLogo, setShowLogo } = useContext(LayoutContext);
+  const { rightIcon, setRightIcon, mainContent, setMainContent } = useContext(LayoutContext);
   const { userAuth } = useContext(UserAuthContext);
 
   // For a cleaner UI, we're only want to show the AppBar's logo and avatar if the user is signed in.
   //  Otherwise we show a clean first-impression UI with a single sign-in button and banner, without duplicating stuff like the logo in the AppBar.
   useEffect(() => {
-    if (userAuth && !(showAvatar || showLogo)) {
-      setShowAvatar(true); 
-      setShowLogo(true);
+    if (userAuth && !(rightIcon || mainContent)) {
+      // Undefined means use default
+      setRightIcon(undefined); 
+      setMainContent(undefined);
     }
     else if (!userAuth) {
-      setShowAvatar(false); 
-      setShowLogo(false);
+      setRightIcon(null); 
+      setMainContent(null);
     }
-  }, [userAuth, showAvatar, showLogo, setShowAvatar, setShowLogo]);
+  }, [userAuth, rightIcon, mainContent, setRightIcon, setMainContent]);
 
 
 
