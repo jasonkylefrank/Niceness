@@ -90,7 +90,7 @@ function MyApp({ Component, pageProps }) {
       //  user is logged in, during which time the auth state is actuall unknown,
       //  but the userAuth object is null (just like it is known that the user is
       //  logged out). 
-      //  We'll handle protected routes in general via another method.
+      //  We're handling protected routes in general via another method.
       const didUserJustLogOut = userHasBeenLoggedInRef.current;
       if (didUserJustLogOut) {        
         // Redirect to the home page

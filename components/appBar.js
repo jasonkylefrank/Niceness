@@ -131,8 +131,11 @@ export default function AppBar({ mainContent, variant, leftIcon: leftIconProp, r
 
               { 
                 (mainContent === 'logo' )
-                  ? <Logo variant="small2" />
-                  // ( <Link href="/"> <Logo variant="small2" /> </Link> )
+                  ? <Link href="/"> 
+                      <a>
+                        <Logo variant="small2" />
+                      </a>
+                    </Link>
                   : mainContent
               }
             </LeftSide>
