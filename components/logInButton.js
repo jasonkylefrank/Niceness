@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 
 
-export default function LogInButton({ rootComponent, className, children }) {
+export default function LogInButton({ rootComponent, className, children, onClick }) {
   const signInWithGoogle = async () => {
     try {  
       await signInWithPopup(auth, googleAuthProvider);
@@ -23,13 +23,15 @@ export default function LogInButton({ rootComponent, className, children }) {
   };
 
   const RootComponent = rootComponent || Button;
-
   const childrenContent = children || 'Log in with Google';
+  const defaultOnClick = signInWithGoogle;
+  const mergedOnClick = onClick ? () => { onClick(); defaultOnClick(); } : defaultOnClick;
+
 
   return (
     // <Button onClick={signInWithGoogle}>
     // Note: We need to pass-in className in order for Styled Components to be able to create styled versions of this component.  See: https://styled-components.com/docs/advanced#styling-normal-react-components
-    <RootComponent onClick={signInWithGoogle} className={className}>
+    <RootComponent onClick={mergedOnClick} className={className}>
       {childrenContent}
     </RootComponent>
     // </Button>

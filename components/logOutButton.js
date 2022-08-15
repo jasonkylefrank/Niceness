@@ -12,7 +12,8 @@ export default function LogOutButton({ rootComponent, className, children, onCli
   const mergedOnClick = onClick ? () => { onClick(); defaultOnClick();} : defaultOnClick;
 
   return (
-    <RootComponent onClick={mergedOnClick}>
+    // Note: We need to pass-in className in order for Styled Components to be able to create styled versions of this component.  See: https://styled-components.com/docs/advanced#styling-normal-react-components
+    <RootComponent onClick={mergedOnClick} className={className}>
       {childrenContent}
     </RootComponent>
   );
