@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Layout from "../components/layout";
 import AboutContent from "../components/aboutContent";
+import AppBar from "../components/appBar";
+
 
 
 export default function About() {
@@ -14,7 +16,9 @@ export default function About() {
 
 About.getLayout = function getLayout(page) {
   return (
-    <Layout title="About">
+    <Layout title="About"
+      AppBarComponent={<AppBar mainContent="logo" />}
+    >
       {page}
     </Layout>
   );

@@ -49,9 +49,9 @@ export default function Layout({ children, title, AppBarComponent }) {
     const titleSuffix = 'Niceness!';
     const fullTitle = title ? `${title} • ${titleSuffix}` : titleSuffix;
 
-    const { showAvatar, showLogo } = useContext(LayoutContext);
+    const { rightIcon, mainContent } = useContext(LayoutContext);
 
-    const appBar = AppBarComponent || <AppBar showLogo={showLogo} showAvatar={showAvatar} />;
+    const appBar = AppBarComponent || <AppBar mainContent={mainContent} rightIcon={rightIcon} />;
 
     return (
         <>

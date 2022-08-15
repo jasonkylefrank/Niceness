@@ -8,5 +8,9 @@
     ],
     "//cleanUrls": "Setting this to 'true' allows you to navigate to pages without specifying '.html' (only needed when viewing the app on Firebase hosting)",
     "cleanUrls": true
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
