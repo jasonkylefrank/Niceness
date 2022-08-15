@@ -8,6 +8,7 @@ import theme from '../components/_theme';
 import { UserAuthContext, LayoutContext } from '../lib/context';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore} from '../lib/firebase';
+import ProtectRoutes from '../components/protectRoutes';
 
 
 const Root = styled.div`
@@ -112,7 +113,9 @@ function MyApp({ Component, pageProps }) {
 
             <UserAuthContext.Provider value={{ userAuth }}>
               <LayoutContext.Provider value={ layoutContextValue }>
-                {componentWithLayout}
+                <ProtectRoutes userAuth={ userAuth } router={ router }>
+                  {componentWithLayout}
+                </ProtectRoutes>
               </LayoutContext.Provider>
             </UserAuthContext.Provider>
           </SCThemeProvider>
