@@ -5,16 +5,18 @@ import AppBar from "../../../components/appBar";
 import PasteLink from "../../../components/onboarding/pasteLink";
 
 
+
 export default function JoinFam() {
   
+  const id = 5;//TEMP
   const router = useRouter();
   const { step } = router.query;
 
   let mainContent;
-
+console.log()
   switch (step) {
     case 'link':
-      mainContent = <PasteLink />;
+      mainContent = <PasteLink url={id}/>;
       break;
     // case 'nickname':
     //   mainContent = <Nickname />;
@@ -24,10 +26,10 @@ export default function JoinFam() {
 
   return (
     <>
-      This is the `JoinFam` component!
+      {/* This is the `JoinFam` component!
       <br /><br />
       You&apos;re on the `{step}` step.
-      <br /><br /><br />
+      <br /><br /><br /> */}
       
       { mainContent }
     </>
