@@ -30,9 +30,7 @@ const muiTheme = createMUITheme(theme);
 
 function MyApp({ Component, pageProps }) {
 
-  const [userAuth] = useAuthState(auth);
-  // A way to deterine when a user just logged out (since Firebase auth will be 'null' for both not-yet-known auth state and logged out state).  See more notes where this ref is used below.
-  const userHasBeenLoggedInRef = useRef(false);
+  const [userAuth, isAuthLoading] = useAuthState(auth);
 
   const [appBarMainContent, setAppBarMainContent] = useState();
   const [appBarRightIcon, setAppBarRightIcon] = useState();
@@ -52,8 +50,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     // When login occurs
     if (userAuth) {
-      userHasBeenLoggedInRef.current = true;
-
       try {
         ( async () => {
           const userDocRef = doc(firestore, 'users', userAuth.uid);
@@ -81,22 +77,6 @@ function MyApp({ Component, pageProps }) {
         console.error(error);
       }
     }
-    // User logged out or the auth state is not known yet
-    else {      
-      // Only redirect the user if we know that they just logged out. 
-      //  This prevents erroneously redirecting them if they refreshed the page
-      //  or manually entered a URL route.  In those cases, Firebase auth has
-      //  to first check with the server (or local storage) to determine if the
-      //  user is logged in, during which time the auth state is actuall unknown,
-      //  but the userAuth object is null (just like it is known that the user is
-      //  logged out). 
-      //  We're handling protected routes in general via another method.
-      const didUserJustLogOut = userHasBeenLoggedInRef.current;
-      if (didUserJustLogOut) {        
-        // Redirect to the home page
-        router.push('/');        
-      }
-    }
   }, [userAuth]);
 
   // Use the layout defined at the page level, if available
@@ -113,7 +93,7 @@ function MyApp({ Component, pageProps }) {
 
             <UserAuthContext.Provider value={{ userAuth }}>
               <LayoutContext.Provider value={ layoutContextValue }>
-                <ProtectRoutes userAuth={ userAuth } router={ router }>
+                <ProtectRoutes userAuth={ userAuth } isAuthLoading={ isAuthLoading } router={ router }>
                   {componentWithLayout}
                 </ProtectRoutes>
               </LayoutContext.Provider>
