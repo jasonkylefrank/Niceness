@@ -91,7 +91,7 @@ function MyApp({ Component, pageProps }) {
           <SCThemeProvider theme={muiTheme}>
             <GlobalStyles />
 
-            <UserAuthContext.Provider value={{ userAuth }}>
+            <UserAuthContext.Provider value={{ userAuth, isAuthLoading }}>
               <LayoutContext.Provider value={ layoutContextValue }>
                 <ProtectRoutes userAuth={ userAuth } isAuthLoading={ isAuthLoading } router={ router }>
                   {componentWithLayout}
