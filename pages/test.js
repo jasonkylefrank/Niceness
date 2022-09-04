@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 import Button from "@mui/material/Button";
 import Layout from "../components/layout";
+import AppBar from "../components/appBar";
 
 
 const P = styled.p`
@@ -39,7 +40,10 @@ export default function Test(props) {
 
 Test.getLayout = function getLayout(page) {
     return (
-        <Layout title="Test">
+        <Layout
+            title="Test" 
+            AppBarComponent={<AppBar mainContent="logo" />}
+        >
             {page}
         </Layout>
     );
