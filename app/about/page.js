@@ -1,7 +1,8 @@
+"use client"
 import styled from "styled-components";
-import Layout from "../components/layout";
-import AboutContent from "../components/aboutContent";
-import AppBar from "../components/appBar";
+import Layout from "../../components/layout";
+import AboutContent from "../../components/aboutContent";
+import AppBar from "../../components/appBar";
 
 
 
