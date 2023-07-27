@@ -3,9 +3,9 @@ import { useContext, useEffect } from "react";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-// import Layout from '../components/layout';
-import WelcomeLogin from '../components/welcomeLogin';
-import LogOutButton from "../components/logOutButton";
+// import Layout from './components/layout';
+import WelcomeLogin from './components/welcomeLogin';
+import LogOutButton from "./components/logOutButton";
 // import { firebaseProjectId } from '../lib/firebase';
 import { UserAuthContext, LayoutContext } from "../lib/context";
 

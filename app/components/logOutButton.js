@@ -1,6 +1,5 @@
-import { signOut } from "firebase/auth";
 import Button from '@mui/material/Button';
-import { auth } from "../lib/firebase";
+import { auth } from "../../lib/firebase";
 
 
 export default function LogOutButton({ rootComponent, className, children, onClick }) {

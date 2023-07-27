@@ -3,8 +3,8 @@ import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 import Button from "@mui/material/Button";
-import Layout from "../../components/layout";
-import AppBar from "../../components/appBar";
+import Layout from "./../components/layout";
+import AppBar from "./../components/appBar";
 
 
 const P = styled.p`
@@ -20,7 +20,6 @@ const StyledButton = styled(Button)`
         color: white;
     }
 `;
-
 export default function Test(props) {
 
     return (

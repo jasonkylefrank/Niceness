@@ -4,8 +4,8 @@ import Icon from "@mui/material/Icon";
 import styled from "styled-components";
 import { Container, Main } from "../components/_sharedStyles";
 import AppBar from './appBar';
-import { firebaseProjectId } from "../lib/firebase";
-import { LayoutContext } from "../lib/context";
+import { firebaseProjectId } from "../../lib/firebase";
+import { LayoutContext } from "../../lib/context";
 
 
 //#region Styled Components

@@ -1,6 +1,6 @@
 "use client"
 import styled from "styled-components";
-import Layout from "../../components/layout";
+import Layout from "./../components/layout";
 
 const FunkyP = styled.p`
   background-color: pink;

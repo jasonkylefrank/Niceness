@@ -12,7 +12,7 @@ import LogInButton from "./logInButton";
 import LogOutButton from "./logOutButton";
 import Logo from "./logo";
 import { useContext, useState } from "react";
-import { UserAuthContext } from "../lib/context";
+import { UserAuthContext } from "../../lib/context";
 
 
 //#region Styled Components

@@ -1,5 +1,5 @@
-import { signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
-import { auth, googleAuthProvider } from "../lib/firebase";
+import {signOut} from "firebase/auth";
+import { auth, googleAuthProvider } from "../../lib/firebase";
 // import styled from "styled-components";
 import Button from '@mui/material/Button';
 
@@ -17,7 +17,7 @@ export default function LogInButton({ rootComponent, className, children, onClic
       // The email of the user's account used.
       const email = error.email;
       // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      const credential = googleAuthProvider.credentialFromError(error);
       console.error(`Error trying to sign in user "${email}" using crendential: ${credential}. Error message: ${errorMessage}`);      
     }
   };
