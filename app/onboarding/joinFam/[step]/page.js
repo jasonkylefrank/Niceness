@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+"use client"
 import styled from "styled-components";
 import Layout from "../../../components/layout";
 import AppBar from "../../../components/appBar";
@@ -6,11 +6,10 @@ import PasteLink from "../../../components/onboarding/pasteLink";
 
 
 
-export default function JoinFam() {
+export default function JoinFam({ params }) {
   
   const id = 5;//TEMP
-  const router = useRouter();
-  const { step } = router.query;
+  const step = params.step
 
   let mainContent;
 console.log()
@@ -23,7 +22,7 @@ console.log()
     default:
       break;
   }
-
+console.log(step)
   return (
     <>
       {/* This is the `JoinFam` component!

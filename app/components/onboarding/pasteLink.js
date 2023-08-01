@@ -1,3 +1,4 @@
+"use client"
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
@@ -44,7 +45,7 @@ export default function PasteLink({url}) {
   return (
     <div>
       <H2>Enter your family link</H2>
-      <p>somone from your family that has already joined can send you the link</p>
+      <p>Put in the link your family has already sent you.</p>
       <PasteInput placeholder='Paste link here' variant='standard' onChange={onchange}/>
     </div>
   );

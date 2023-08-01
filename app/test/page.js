@@ -26,7 +26,6 @@ export default function Test(props) {
         <>
             <h1>This is the &quot;test&quot; page</h1>
             <P>Just a test, man!</P>
-
             <StyledButton>Cool button</StyledButton>
 
             <Button sx={{ color: 'brown' }}>Regular button</Button>

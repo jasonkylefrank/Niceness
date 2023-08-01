@@ -1,3 +1,4 @@
+"use client"
 import Head from 'next/head';
 import { useContext } from "react";
 import Icon from "@mui/material/Icon";
@@ -23,8 +24,8 @@ const Footer = styled.footer`
     justify-content: center;
     background-color: rgba(0,0,0,0.07);
     height: 48px;
-    color: ${({ theme }) => theme.palette.text.secondary };
-`;
+    `;
+    // color: ${({ theme }) => theme.palette.text.secondary };
 const TempP = styled.p`  
   color: rgba(0,0,0,0.54);
   font-size: 0.85rem;
@@ -39,6 +40,7 @@ const FooterIcon = styled(Icon)`
     && {        
         font-size: 14px;
         margin: 2px 4px 0 4px;
+        width:42px;
     }
 `;
 //#endregion

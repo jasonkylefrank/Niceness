@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
   html,
   body {
     padding: 0;
-    margin: 0;
+    margin: 0px;
     color: ${({ theme }) => theme.palette.text.primary};
     font-size: 14px;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,

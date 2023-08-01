@@ -1,13 +1,12 @@
-import { useRouter } from "next/router";
+"use client"
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import Layout from "../../../components/layout";
 import AppBar from "../../../components/appBar";
 
 
-export default function CreateFam() {
-
-  const router = useRouter();
-  const { step } = router.query;
+export default function CreateFam({ params }) {
+  const step = params.step
 
   return (
     <>
