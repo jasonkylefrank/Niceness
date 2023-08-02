@@ -1,3 +1,4 @@
+import "./globals.css"
 import Layout from "./components/layout";
 import styled from "styled-components"
 import StyledComponentsRegistry from '../lib/styledComponentsRegistry';

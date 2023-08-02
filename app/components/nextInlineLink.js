@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { InlineLink } from './_sharedStyles';
+import { InlineLink } from './sharedStyles';
 
 // Inspiration: https://github.com/vercel/next.js/issues/1942#issuecomment-437680021
 

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useContext } from "react";
 import Icon from "@mui/material/Icon";
 import styled from "styled-components";
-import { Container, Main } from "../components/_sharedStyles";
+import { Container, Main } from "./sharedStyles";
 import AppBar from './appBar';
 import { firebaseProjectId } from "../../lib/firebase";
 import { LayoutContext } from "../../lib/context";

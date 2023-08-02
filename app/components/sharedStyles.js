@@ -21,8 +21,8 @@ const Main = styled.main`
 
 
 const InlineLink = styled.a`
-  color: ${({ theme }) => theme.palette.primary.main };
 
+  color: ${({ theme }) => theme.palette.primary.main };
   :hover {
     text-decoration: underline;
   }
